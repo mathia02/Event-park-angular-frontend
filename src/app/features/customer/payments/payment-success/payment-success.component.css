@@ -1,0 +1,189 @@
+:host {
+  display: block;
+}
+
+.success-page {
+  max-width: 800px;
+
+  margin: 0 auto;
+}
+
+.success-card {
+  padding: 45px;
+
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  text-align: center;
+}
+
+.success-icon {
+  width: 75px;
+  height: 75px;
+
+  margin: 0 auto 20px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #dcfce7;
+
+  color: #16a34a;
+
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.small-label {
+  color: #16a34a;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+}
+
+.success-card h1 {
+  margin: 8px 0;
+
+  color: #172554;
+
+  font-size: 35px;
+}
+
+.success-card > p {
+  color: #64748b;
+}
+
+.amount {
+  margin: 28px 0;
+
+  padding: 22px;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #f0fdf4
+    );
+}
+
+.amount span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #64748b;
+}
+
+.amount strong {
+  color: #172554;
+
+  font-size: 28px;
+}
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 12px;
+
+  text-align: left;
+}
+
+.details-grid > div {
+  padding: 16px;
+
+  border-radius: 11px;
+
+  background: #f8fafc;
+}
+
+.details-grid span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+.details-grid strong {
+  color: #334155;
+
+  font-size: 13px;
+
+  word-break: break-word;
+}
+
+.actions {
+  margin-top: 28px;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 12px 18px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  font-weight: 700;
+}
+
+.primary-button {
+  background: #2563eb;
+
+  color: #ffffff;
+}
+
+.secondary-button {
+  border: 1px solid #cbd5e1;
+
+  color: #475569;
+}
+
+.state-card {
+  padding: 40px;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+.state-card.error {
+  color: #dc2626;
+}
+
+@media (max-width: 600px) {
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+}

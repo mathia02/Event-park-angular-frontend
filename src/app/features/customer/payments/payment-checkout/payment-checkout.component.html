@@ -1,0 +1,297 @@
+<section class="payment-page">
+
+  <div class="page-heading">
+
+    <span>
+      PAYMENT
+    </span>
+
+    <h1>
+      Complete Your Payment
+    </h1>
+
+    <p>
+      Choose your payment method
+      and confirm your booking.
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading payment details...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="error-message"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      booking() as currentBooking
+    "
+    class="payment-layout"
+  >
+
+    <section class="payment-card">
+
+      <span class="small-label">
+        SELECT PAYMENT METHOD
+      </span>
+
+      <h2>
+        How would you like to pay?
+      </h2>
+
+
+      <div class="method-grid">
+
+        <button
+          type="button"
+          class="method-card"
+          [class.selected]="
+            selectedMethod() ===
+            PaymentMethod.Card
+          "
+          (click)="
+            selectMethod(
+              PaymentMethod.Card
+            )
+          "
+        >
+
+          <div class="method-icon">
+            CARD
+          </div>
+
+          <strong>
+            Card
+          </strong>
+
+          <span>
+            Debit or credit card
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="method-card"
+          [class.selected]="
+            selectedMethod() ===
+            PaymentMethod.BankTransfer
+          "
+          (click)="
+            selectMethod(
+              PaymentMethod.BankTransfer
+            )
+          "
+        >
+
+          <div class="method-icon">
+            BANK
+          </div>
+
+          <strong>
+            Bank Transfer
+          </strong>
+
+          <span>
+            Pay through your bank
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="method-card"
+          [class.selected]="
+            selectedMethod() ===
+            PaymentMethod.MobileWallet
+          "
+          (click)="
+            selectMethod(
+              PaymentMethod.MobileWallet
+            )
+          "
+        >
+
+          <div class="method-icon">
+            WALLET
+          </div>
+
+          <strong>
+            Mobile Wallet
+          </strong>
+
+          <span>
+            Pay with mobile wallet
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="secure-note">
+
+        <strong>
+          Secure Payment
+        </strong>
+
+        <p>
+          Your payment will confirm
+          the selected seats and parking.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <aside class="summary-card">
+
+      <span class="small-label">
+        BOOKING SUMMARY
+      </span>
+
+      <h2>
+        Payment Summary
+      </h2>
+
+
+      <div class="summary-row">
+
+        <span>
+          Booking Number
+        </span>
+
+        <strong>
+          {{ currentBooking.bookingNumber }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Event
+        </span>
+
+        <strong>
+          {{ currentBooking.eventName }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Seats
+        </span>
+
+        <strong>
+          {{ currentBooking.seats.length }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Parking
+        </span>
+
+        <strong>
+          {{
+            currentBooking.parking
+              ? currentBooking.parking.slotNumber
+              : 'No parking'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="total-row">
+
+        <span>
+          Amount to Pay
+        </span>
+
+        <strong>
+          LKR
+          {{
+            currentBooking.totalAmount
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <button
+        *ngIf="
+          currentBooking.status ===
+          BookingStatus.Pending
+        "
+        type="button"
+        class="pay-button"
+        [disabled]="
+          isPaying() ||
+          selectedMethod() ===
+          PaymentMethod.NotSpecified
+        "
+        (click)="makePayment()"
+      >
+
+        {{
+          isPaying()
+            ? 'Processing Payment...'
+            : 'Pay Now'
+        }}
+
+      </button>
+
+
+      <div
+        *ngIf="
+          currentBooking.status !==
+          BookingStatus.Pending
+        "
+        class="not-payable"
+      >
+        This booking is no longer
+        waiting for payment.
+      </div>
+
+
+      <a
+        routerLink="/customer/dashboard"
+        class="cancel-link"
+      >
+        Back to Dashboard
+      </a>
+
+    </aside>
+
+  </div>
+
+</section>

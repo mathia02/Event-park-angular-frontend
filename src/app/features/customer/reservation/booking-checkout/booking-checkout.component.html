@@ -1,0 +1,409 @@
+<section class="checkout-page">
+
+  <div
+    *ngIf="!createdBooking()"
+    class="page-heading"
+  >
+
+    <span>
+      STEP 3 OF 3
+    </span>
+
+    <h1>
+      Booking Checkout
+    </h1>
+
+    <p>
+      Review your reservation before
+      creating the booking.
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Preparing checkout...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="error-message"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !createdBooking() &&
+      event() as currentEvent
+    "
+    class="checkout-layout"
+  >
+
+    <section class="checkout-card">
+
+      <span class="small-label">
+        EVENT
+      </span>
+
+      <h2>
+        {{ currentEvent.name }}
+      </h2>
+
+
+      <div class="event-details">
+
+        <div>
+          <span>Venue</span>
+          <strong>
+            {{ currentEvent.venueName }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Date</span>
+          <strong>
+            {{
+              currentEvent.startDateTime
+                | date:'mediumDate'
+            }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Time</span>
+          <strong>
+            {{
+              currentEvent.startDateTime
+                | date:'shortTime'
+            }}
+          </strong>
+        </div>
+
+      </div>
+
+
+      <div class="section-divider"></div>
+
+
+      <span class="small-label">
+        SELECTED SEATS
+      </span>
+
+      <div class="seat-list">
+
+        <div
+          *ngFor="
+            let seat of selectedSeats()
+          "
+        >
+
+          <div>
+
+            <strong>
+              Seat {{ seat.seatNumber }}
+            </strong>
+
+            <span>
+              {{ seat.seatType || 'Regular' }}
+            </span>
+
+          </div>
+
+          <strong>
+            LKR
+            {{
+              (
+                seat.priceOverride
+                ??
+                currentEvent.ticketPrice
+              )
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <ng-container
+        *ngIf="parking() as selectedParking"
+      >
+
+        <div class="section-divider"></div>
+
+        <span class="small-label">
+          PARKING
+        </span>
+
+        <div class="parking-summary">
+
+          <div>
+
+            <strong>
+              Slot
+              {{ selectedParking.slotNumber }}
+            </strong>
+
+            <span>
+              Zone
+              {{ selectedParking.zone }}
+            </span>
+
+          </div>
+
+          <strong>
+            LKR
+            {{
+              selectedParking.fee
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+      </ng-container>
+
+    </section>
+
+
+    <aside class="price-card">
+
+      <span class="small-label">
+        PAYMENT SUMMARY
+      </span>
+
+      <h2>
+        Order Summary
+      </h2>
+
+
+      <div class="price-row">
+
+        <span>
+          Seats
+        </span>
+
+        <strong>
+          {{ selectedSeats().length }}
+        </strong>
+
+      </div>
+
+
+      <div class="price-row">
+
+        <span>
+          Seat Total
+        </span>
+
+        <strong>
+          LKR
+          {{
+            seatTotal()
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="price-row">
+
+        <span>
+          Parking
+        </span>
+
+        <strong>
+          LKR
+          {{
+            parkingTotal()
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="grand-total">
+
+        <span>
+          Total
+        </span>
+
+        <strong>
+          LKR
+          {{
+            grandTotal()
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="create-button"
+        [disabled]="isCreating()"
+        (click)="createBooking()"
+      >
+
+        {{
+          isCreating()
+            ? 'Creating Booking...'
+            : 'Confirm Booking'
+        }}
+
+      </button>
+
+
+      <button
+        type="button"
+        class="back-button"
+        [disabled]="isCreating()"
+        (click)="backToParking()"
+      >
+        Back
+      </button>
+
+    </aside>
+
+  </div>
+
+
+  <section
+    *ngIf="
+      createdBooking() as booking
+    "
+    class="success-card"
+  >
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <span>
+      BOOKING CREATED
+    </span>
+
+    <h1>
+      Reservation Created
+    </h1>
+
+    <p>
+      Your booking has been created successfully.
+    </p>
+
+
+    <div class="booking-number">
+
+      <span>
+        Booking Number
+      </span>
+
+      <strong>
+        {{ booking.bookingNumber }}
+      </strong>
+
+    </div>
+
+
+    <div class="success-summary">
+
+      <div>
+
+        <span>
+          Event
+        </span>
+
+        <strong>
+          {{ booking.eventName }}
+        </strong>
+
+      </div>
+
+      <div>
+
+        <span>
+          Seats
+        </span>
+
+        <strong>
+          {{ booking.seats.length }}
+        </strong>
+
+      </div>
+
+      <div>
+
+        <span>
+          Total Amount
+        </span>
+
+        <strong>
+          LKR
+          {{
+            booking.totalAmount
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <p
+      *ngIf="
+        booking.status === 1 &&
+        booking.totalAmount > 0
+      "
+      class="payment-note"
+    >
+      Your seats are temporarily held.
+      Complete payment to confirm
+      this booking.
+    </p>
+
+
+    <a
+      *ngIf="
+        booking.status === 1 &&
+        booking.totalAmount > 0
+      "
+      [routerLink]="[
+        '/customer/payments',
+        booking.id,
+        'checkout'
+      ]"
+      class="dashboard-button"
+    >
+      Continue to Payment
+    </a>
+
+
+    <a
+      *ngIf="
+        booking.status !== 1 ||
+        booking.totalAmount === 0
+      "
+      routerLink="/customer/dashboard"
+      class="dashboard-button"
+    >
+      Back to Dashboard
+    </a>
+
+  </section>
+
+</section>

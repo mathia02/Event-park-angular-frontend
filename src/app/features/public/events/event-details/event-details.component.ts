@@ -55,11 +55,16 @@ export class EventDetailsComponent
   errorMessage =
     signal('');
 
+  isCustomer =
+    localStorage.getItem('authRole')
+    === 'Customer';
+
   ngOnInit(): void {
 
     const id =
       Number(
-        this.route.snapshot.paramMap.get('id')
+        this.route.snapshot
+          .paramMap.get('id')
       );
 
     if (!id || id <= 0) {
@@ -110,7 +115,8 @@ export class EventDetailsComponent
           this.event.set(null);
 
           this.errorMessage.set(
-            error?.error?.message ??
+            error?.error?.message
+            ??
             'Unable to load event details.'
           );
 

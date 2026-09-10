@@ -1,0 +1,278 @@
+:host {
+  display: block;
+}
+
+.checkout-page {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.page-heading {
+  margin-bottom: 25px;
+}
+
+.page-heading > span,
+.small-label,
+.success-card > span {
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.page-heading h1 {
+  margin: 7px 0;
+  color: #172554;
+  font-size: 34px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #64748b;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 25px;
+}
+
+.checkout-card,
+.price-card,
+.success-card {
+  padding: 30px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.checkout-card h2,
+.price-card h2 {
+  margin: 8px 0 22px;
+  color: #172554;
+}
+
+.event-details {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+  gap: 12px;
+}
+
+.event-details > div {
+  padding: 15px;
+  border-radius: 11px;
+  background: #f8fafc;
+}
+
+.event-details span,
+.booking-number span,
+.success-summary span {
+  display: block;
+  margin-bottom: 5px;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.event-details strong {
+  color: #334155;
+  font-size: 13px;
+}
+
+.section-divider {
+  margin: 25px 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.seat-list {
+  margin-top: 12px;
+}
+
+.seat-list > div,
+.parking-summary {
+  padding: 13px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.seat-list div div,
+.parking-summary div {
+  display: flex;
+  flex-direction: column;
+}
+
+.seat-list span,
+.parking-summary span {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.seat-list strong,
+.parking-summary strong {
+  color: #334155;
+  font-size: 13px;
+}
+
+.price-card {
+  height: fit-content;
+}
+
+.price-row {
+  padding: 13px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.price-row span {
+  color: #64748b;
+}
+
+.price-row strong {
+  color: #334155;
+}
+
+.grand-total {
+  margin-top: 17px;
+  padding-top: 17px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid #172554;
+}
+
+.grand-total strong {
+  color: #172554;
+  font-size: 20px;
+}
+
+.create-button,
+.back-button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-button {
+  margin-top: 22px;
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.back-button {
+  margin-top: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+}
+
+.create-button:disabled,
+.back-button:disabled {
+  opacity: 0.6;
+}
+
+.success-card {
+  max-width: 700px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.success-icon {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.success-card h1 {
+  margin: 8px 0;
+  color: #172554;
+}
+
+.success-card > p {
+  color: #64748b;
+}
+
+.booking-number {
+  margin: 25px 0;
+  padding: 18px;
+  border-radius: 12px;
+  background: #eff6ff;
+}
+
+.booking-number strong {
+  color: #2563eb;
+  font-size: 20px;
+}
+
+.success-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+  gap: 12px;
+}
+
+.success-summary > div {
+  padding: 15px;
+  border-radius: 11px;
+  background: #f8fafc;
+}
+
+.success-summary strong {
+  color: #334155;
+}
+
+.payment-note {
+  margin-top: 25px;
+}
+
+.dashboard-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.state-card,
+.error-message {
+  padding: 35px;
+  text-align: center;
+  border-radius: 15px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.error-message {
+  margin-bottom: 20px;
+  color: #dc2626;
+}
+
+@media (max-width: 850px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .event-details,
+  .success-summary {
+    grid-template-columns: 1fr;
+  }
+}

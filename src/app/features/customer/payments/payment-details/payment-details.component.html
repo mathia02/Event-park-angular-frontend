@@ -1,0 +1,137 @@
+<section class="details-page">
+
+  <a
+    routerLink="/customer/payments"
+    class="back-link"
+  >
+    ← Back to My Payments
+  </a>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading payment details...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <section
+    *ngIf="
+      !isLoading() &&
+      payment() as currentPayment
+    "
+    class="details-card"
+  >
+
+    <div class="details-heading">
+
+      <div>
+
+        <span>
+          PAYMENT DETAILS
+        </span>
+
+        <h1>
+          Payment Receipt
+        </h1>
+
+      </div>
+
+
+      <div
+        class="status"
+        [class.completed]="
+          currentPayment.status ===
+          PaymentStatus.Completed
+        "
+      >
+        {{
+          currentPayment.status ===
+          PaymentStatus.Completed
+            ? 'Completed'
+            : 'Pending'
+        }}
+      </div>
+
+    </div>
+
+
+    <div class="amount-box">
+
+      <span>
+        Amount
+      </span>
+
+      <strong>
+        LKR
+        {{
+          currentPayment.amount
+            | number:'1.2-2'
+        }}
+      </strong>
+
+    </div>
+
+
+    <div class="info-grid">
+
+      <div>
+        <span>Payment ID</span>
+        <strong>{{ currentPayment.id }}</strong>
+      </div>
+
+      <div>
+        <span>Booking Number</span>
+        <strong>{{ currentPayment.bookingNumber }}</strong>
+      </div>
+
+      <div>
+        <span>Customer</span>
+        <strong>{{ currentPayment.customerName }}</strong>
+      </div>
+
+      <div>
+        <span>Payment Method</span>
+        <strong>
+          {{
+            getMethodName(
+              currentPayment.paymentMethod
+            )
+          }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Transaction Reference</span>
+        <strong>
+          {{ currentPayment.transactionReference }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Payment Date</span>
+        <strong>
+          {{
+            currentPayment.createdAt
+              | date:'medium'
+          }}
+        </strong>
+      </div>
+
+    </div>
+
+  </section>
+
+</section>

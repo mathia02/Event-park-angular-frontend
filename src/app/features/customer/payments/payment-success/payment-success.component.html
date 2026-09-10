@@ -1,0 +1,152 @@
+<section class="success-page">
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading payment confirmation...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <section
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      payment() as currentPayment
+    "
+    class="success-card"
+  >
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <span class="small-label">
+      PAYMENT COMPLETED
+    </span>
+
+    <h1>
+      Payment Successful
+    </h1>
+
+    <p>
+      Your payment has been completed
+      and your booking is now confirmed.
+    </p>
+
+
+    <div class="amount">
+
+      <span>
+        Amount Paid
+      </span>
+
+      <strong>
+        LKR
+        {{
+          currentPayment.amount
+            | number:'1.2-2'
+        }}
+      </strong>
+
+    </div>
+
+
+    <div class="details-grid">
+
+      <div>
+
+        <span>
+          Booking Number
+        </span>
+
+        <strong>
+          {{ currentPayment.bookingNumber }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Transaction Reference
+        </span>
+
+        <strong>
+          {{ currentPayment.transactionReference }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Payment Method
+        </span>
+
+        <strong>
+          {{
+            getMethodName(
+              currentPayment.paymentMethod
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Payment Date
+        </span>
+
+        <strong>
+          {{
+            currentPayment.createdAt
+              | date:'medium'
+          }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <a
+        [routerLink]="[
+          '/customer/payments',
+          currentPayment.id
+        ]"
+        class="secondary-button"
+      >
+        View Payment
+      </a>
+
+      <a
+        routerLink="/customer/payments"
+        class="primary-button"
+      >
+        My Payments
+      </a>
+
+    </div>
+
+  </section>
+
+</section>

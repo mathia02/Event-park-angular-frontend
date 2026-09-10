@@ -66,42 +66,60 @@ import {
   ProfileEditComponent
 } from './features/customer/profile/profile-edit/profile-edit.component';
 
+import {
+  SeatSelectionComponent
+} from './features/customer/reservation/seat-selection/seat-selection.component';
+
+import {
+  ParkingSelectionComponent
+} from './features/customer/reservation/parking-selection/parking-selection.component';
+
+import {
+  BookingCheckoutComponent
+} from './features/customer/reservation/booking-checkout/booking-checkout.component';
+
+import {
+  PaymentCheckoutComponent
+} from './features/customer/payments/payment-checkout/payment-checkout.component';
+
+import {
+  PaymentSuccessComponent
+} from './features/customer/payments/payment-success/payment-success.component';
+
+import {
+  MyPaymentsComponent
+} from './features/customer/payments/my-payments/my-payments.component';
+
+import {
+  PaymentDetailsComponent
+} from './features/customer/payments/payment-details/payment-details.component';
+
 export const routes: Routes = [
 
   {
     path: '',
-
-    component:
-      PublicLayoutComponent,
+    component: PublicLayoutComponent,
 
     children: [
 
       {
         path: '',
-
-        component:
-          HomeComponent
+        component: HomeComponent
       },
 
       {
         path: 'events',
-
-        component:
-          EventListComponent
+        component: EventListComponent
       },
 
       {
         path: 'events/:id',
-
-        component:
-          EventDetailsComponent
+        component: EventDetailsComponent
       },
 
       {
         path: 'venues',
-
-        component:
-          VenueListComponent
+        component: VenueListComponent
       }
 
     ]
@@ -122,31 +140,81 @@ export const routes: Routes = [
 
       {
         path: '',
-
         redirectTo: 'dashboard',
-
         pathMatch: 'full'
       },
 
       {
         path: 'dashboard',
-
         component:
           CustomerDashboardComponent
       },
 
       {
         path: 'profile',
-
         component:
           ProfileViewComponent
       },
 
       {
         path: 'profile/edit',
-
         component:
           ProfileEditComponent
+      },
+
+      {
+        path:
+          'reservation/:eventId/seats',
+
+        component:
+          SeatSelectionComponent
+      },
+
+      {
+        path:
+          'reservation/:eventId/parking',
+
+        component:
+          ParkingSelectionComponent
+      },
+
+      {
+        path:
+          'reservation/:eventId/checkout',
+
+        component:
+          BookingCheckoutComponent
+      },
+
+      {
+        path:
+          'payments/:bookingId/checkout',
+
+        component:
+          PaymentCheckoutComponent
+      },
+
+      {
+        path:
+          'payments/:paymentId/success',
+
+        component:
+          PaymentSuccessComponent
+      },
+
+      {
+        path: 'payments',
+
+        component:
+          MyPaymentsComponent
+      },
+
+      {
+        path:
+          'payments/:paymentId',
+
+        component:
+          PaymentDetailsComponent
       }
 
     ]
@@ -155,55 +223,36 @@ export const routes: Routes = [
 
   {
     path: 'login',
-
-    component:
-      LoginComponent
+    component: LoginComponent
   },
-
 
   {
     path: 'register',
-
-    component:
-      RegisterComponent
+    component: RegisterComponent
   },
-
 
   {
     path: 'verify-email',
-
-    component:
-      VerifyEmailComponent
+    component: VerifyEmailComponent
   },
-
 
   {
     path: 'resend-verification',
-
-    component:
-      ResendVerificationComponent
+    component: ResendVerificationComponent
   },
-
 
   {
     path: 'forgot-password',
-
-    component:
-      ForgotPasswordComponent
+    component: ForgotPasswordComponent
   },
-
 
   {
     path: 'reset-password',
-
-    component:
-      ResetPasswordComponent
+    component: ResetPasswordComponent
   },
-
 
   {
     path: '**',
-
     redirectTo: ''
   }
 

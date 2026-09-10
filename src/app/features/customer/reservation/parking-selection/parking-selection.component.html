@@ -1,0 +1,225 @@
+<section class="parking-page">
+
+  <div class="page-heading">
+
+    <span>
+      STEP 2 OF 3
+    </span>
+
+    <h1>
+      Reserve Parking
+    </h1>
+
+    <p>
+      Parking is optional.
+      You can continue without selecting a slot.
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading parking slots...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage()
+    "
+    class="parking-layout"
+  >
+
+    <section class="parking-section">
+
+      <div class="parking-top">
+
+        <div>
+
+          <span>
+            AVAILABLE PARKING
+          </span>
+
+          <h2>
+            Choose a Parking Slot
+          </h2>
+
+        </div>
+
+        <strong>
+          {{ parkingSlots().length }}
+          available
+        </strong>
+
+      </div>
+
+
+      <div
+        *ngIf="
+          parkingSlots().length === 0
+        "
+        class="state-card"
+      >
+        No parking slots available.
+        You can continue without parking.
+      </div>
+
+
+      <div
+        class="parking-grid"
+        *ngIf="
+          parkingSlots().length > 0
+        "
+      >
+
+        <button
+          type="button"
+          *ngFor="
+            let slot of parkingSlots()
+          "
+          class="parking-slot"
+          [class.selected]="
+            isSelected(slot.id)
+          "
+          (click)="
+            selectParking(slot)
+          "
+        >
+
+          <span class="parking-icon">
+            P
+          </span>
+
+          <strong>
+            {{ slot.slotNumber }}
+          </strong>
+
+          <small>
+            Zone {{ slot.zone }}
+          </small>
+
+          <span class="fee">
+            LKR
+            {{
+              slot.fee
+                | number:'1.2-2'
+            }}
+          </span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <aside class="summary-card">
+
+      <span class="small-label">
+        RESERVATION
+      </span>
+
+      <h2>
+        Selection Summary
+      </h2>
+
+
+      <div class="summary-row">
+
+        <span>
+          Event
+        </span>
+
+        <strong>
+          {{ event()?.name }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Seats Selected
+        </span>
+
+        <strong>
+          {{ seatIds().length }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Parking
+        </span>
+
+        <strong>
+          {{
+            selectedParking()?.slotNumber
+            ||
+            'Not selected'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Parking Fee
+        </span>
+
+        <strong>
+          LKR
+          {{
+            (selectedParking()?.fee || 0)
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="continue-button"
+        (click)="
+          continueToCheckout()
+        "
+      >
+        Continue to Checkout
+      </button>
+
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="backToSeats()"
+      >
+        Back to Seats
+      </button>
+
+    </aside>
+
+  </div>
+
+</section>

@@ -1,0 +1,187 @@
+<section class="payments-page">
+
+  <div class="page-heading">
+
+    <span>
+      PAYMENTS
+    </span>
+
+    <h1>
+      My Payments
+    </h1>
+
+    <p>
+      View your completed payment history.
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading payments...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      payments().length === 0
+    "
+    class="state-card"
+  >
+
+    <h3>
+      No payments yet
+    </h3>
+
+    <p>
+      Your completed payments will
+      appear here.
+    </p>
+
+    <a
+      routerLink="/events"
+      class="browse-button"
+    >
+      Browse Events
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      payments().length > 0
+    "
+    class="payments-list"
+  >
+
+    <article
+      *ngFor="let payment of payments()"
+      class="payment-card"
+    >
+
+      <div class="payment-top">
+
+        <div>
+
+          <span>
+            BOOKING
+          </span>
+
+          <h3>
+            {{ payment.bookingNumber }}
+          </h3>
+
+        </div>
+
+        <div
+          class="status"
+          [class.completed]="
+            payment.status ===
+            PaymentStatus.Completed
+          "
+        >
+          {{
+            payment.status ===
+            PaymentStatus.Completed
+              ? 'Completed'
+              : 'Pending'
+          }}
+        </div>
+
+      </div>
+
+
+      <div class="payment-info">
+
+        <div>
+
+          <span>
+            Amount
+          </span>
+
+          <strong>
+            LKR
+            {{
+              payment.amount
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Method
+          </span>
+
+          <strong>
+            {{
+              getMethodName(
+                payment.paymentMethod
+              )
+            }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Date
+          </span>
+
+          <strong>
+            {{
+              payment.createdAt
+                | date:'mediumDate'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="payment-bottom">
+
+        <span>
+          {{ payment.transactionReference }}
+        </span>
+
+        <a
+          [routerLink]="[
+            '/customer/payments',
+            payment.id
+          ]"
+        >
+          View Details
+        </a>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>

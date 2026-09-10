@@ -73,6 +73,7 @@
 
         </div>
 
+
         <div class="date-card">
 
           <span>
@@ -255,13 +256,31 @@
 
 
           <p class="booking-note">
-            Sign in to select your seats,
-            reserve parking and complete
-            your booking.
+
+            {{
+              isCustomer
+                ? 'Select your preferred seats and continue your reservation.'
+                : 'Sign in to select seats, reserve parking and complete your booking.'
+            }}
+
           </p>
 
 
           <a
+            *ngIf="isCustomer"
+            [routerLink]="[
+              '/customer/reservation',
+              selectedEvent.id,
+              'seats'
+            ]"
+            class="primary-button full"
+          >
+            Book Now
+          </a>
+
+
+          <a
+            *ngIf="!isCustomer"
             routerLink="/login"
             class="primary-button full"
           >

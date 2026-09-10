@@ -1,0 +1,227 @@
+<section class="reservation-page">
+
+  <div class="page-heading">
+
+    <div>
+      <span>
+        STEP 1 OF 3
+      </span>
+
+      <h1>
+        Select Your Seats
+      </h1>
+
+      <p *ngIf="event() as currentEvent">
+        {{ currentEvent.name }}
+      </p>
+    </div>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading available seats...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="error-message"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      event() as currentEvent
+    "
+    class="reservation-layout"
+  >
+
+    <section class="seat-section">
+
+      <div class="screen">
+        EVENT STAGE
+      </div>
+
+
+      <div class="legend">
+
+        <div>
+          <span class="legend-seat available"></span>
+          Available
+        </div>
+
+        <div>
+          <span class="legend-seat selected"></span>
+          Selected
+        </div>
+
+      </div>
+
+
+      <div
+        *ngIf="seats().length === 0"
+        class="state-card"
+      >
+        No seats are currently available.
+      </div>
+
+
+      <div
+        *ngIf="seats().length > 0"
+        class="seat-grid"
+      >
+
+        <button
+          *ngFor="let seat of seats()"
+          type="button"
+          class="seat"
+          [class.selected]="
+            isSelected(seat.id)
+          "
+          (click)="toggleSeat(seat)"
+        >
+
+          <strong>
+            {{ seat.seatNumber }}
+          </strong>
+
+          <small>
+            {{ seat.seatType || 'Regular' }}
+          </small>
+
+          <span>
+            LKR
+            {{
+              getSeatPrice(seat)
+                | number:'1.0-2'
+            }}
+          </span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <aside class="summary-card">
+
+      <span class="summary-label">
+        YOUR SELECTION
+      </span>
+
+      <h2>
+        Booking Summary
+      </h2>
+
+
+      <div class="event-info">
+
+        <span>
+          Event
+        </span>
+
+        <strong>
+          {{ currentEvent.name }}
+        </strong>
+
+      </div>
+
+
+      <div class="event-info">
+
+        <span>
+          Venue
+        </span>
+
+        <strong>
+          {{ currentEvent.venueName }}
+        </strong>
+
+      </div>
+
+
+      <div class="event-info">
+
+        <span>
+          Seats Selected
+        </span>
+
+        <strong>
+          {{ selectedSeatIds().length }}
+        </strong>
+
+      </div>
+
+
+      <div
+        *ngIf="selectedSeats().length > 0"
+        class="selected-list"
+      >
+
+        <div
+          *ngFor="
+            let seat of selectedSeats()
+          "
+        >
+
+          <span>
+            {{ seat.seatNumber }}
+          </span>
+
+          <strong>
+            LKR
+            {{
+              getSeatPrice(seat)
+                | number:'1.0-2'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="total-row">
+
+        <span>
+          Seat Total
+        </span>
+
+        <strong>
+          LKR
+          {{
+            selectedSeatTotal()
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="continue-button"
+        [disabled]="
+          selectedSeatIds().length === 0
+        "
+        (click)="continueToParking()"
+      >
+        Continue to Parking
+      </button>
+
+    </aside>
+
+  </div>
+
+</section>
