@@ -1,0 +1,252 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / EVENTS
+      </span>
+
+      <h1>
+        Create Event
+      </h1>
+
+      <p>
+        Add a new event to the system.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/events"
+      class="secondary-btn"
+    >
+      Back
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading form...
+  </div>
+
+
+  <form
+    *ngIf="!isLoading()"
+    [formGroup]="eventForm"
+    (ngSubmit)="createEvent()"
+    class="form-card"
+  >
+
+    <div class="form-grid">
+
+      <div class="field full-width">
+
+        <label>
+          Event Name
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Enter event name"
+        >
+
+        <span
+          *ngIf="
+            eventForm.controls.name.touched &&
+            eventForm.controls.name.invalid
+          "
+          class="validation"
+        >
+          Event name is required.
+        </span>
+
+      </div>
+
+
+      <div class="field full-width">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          formControlName="description"
+          placeholder="Event description"
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Venue
+        </label>
+
+        <select
+          formControlName="venueId"
+        >
+
+          <option [ngValue]="0">
+            Select Venue
+          </option>
+
+          <option
+            *ngFor="
+              let venue of venues()
+            "
+            [ngValue]="venue.id"
+          >
+            {{ venue.name }}
+            - Capacity {{ venue.capacity }}
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Category
+        </label>
+
+        <select
+          formControlName="categoryId"
+        >
+
+          <option [ngValue]="0">
+            Select Category
+          </option>
+
+          <option
+            *ngFor="
+              let category of categories()
+            "
+            [ngValue]="category.id"
+          >
+            {{ category.name }}
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Start Date & Time
+        </label>
+
+        <input
+          type="datetime-local"
+          formControlName="startDateTime"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          End Date & Time
+        </label>
+
+        <input
+          type="datetime-local"
+          formControlName="endDateTime"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Ticket Price (LKR)
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          formControlName="ticketPrice"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Parking Fee (LKR)
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          formControlName="parkingFee"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Event Capacity
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          formControlName="capacity"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="isSaving()"
+      >
+        {{
+          isSaving()
+            ? 'Creating...'
+            : 'Create Event'
+        }}
+      </button>
+
+      <a
+        routerLink="/admin/events"
+        class="secondary-btn"
+      >
+        Cancel
+      </a>
+
+    </div>
+
+  </form>
+
+</section>

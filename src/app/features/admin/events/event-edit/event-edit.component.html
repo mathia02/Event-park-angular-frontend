@@ -1,0 +1,231 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / EVENTS
+      </span>
+
+      <h1>
+        Edit Event
+      </h1>
+
+      <p>
+        Update event information.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/events"
+      class="secondary-btn"
+    >
+      Back
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading event...
+  </div>
+
+
+  <form
+    *ngIf="!isLoading()"
+    [formGroup]="eventForm"
+    (ngSubmit)="updateEvent()"
+    class="form-card"
+  >
+
+    <div class="form-grid">
+
+      <div class="field full-width">
+
+        <label>
+          Event Name
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+        >
+
+      </div>
+
+
+      <div class="field full-width">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          formControlName="description"
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Venue
+        </label>
+
+        <select
+          formControlName="venueId"
+        >
+
+          <option
+            *ngFor="
+              let venue of venues()
+            "
+            [ngValue]="venue.id"
+          >
+            {{ venue.name }}
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Category
+        </label>
+
+        <select
+          formControlName="categoryId"
+        >
+
+          <option
+            *ngFor="
+              let category of categories()
+            "
+            [ngValue]="category.id"
+          >
+            {{ category.name }}
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Start Date & Time
+        </label>
+
+        <input
+          type="datetime-local"
+          formControlName="startDateTime"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          End Date & Time
+        </label>
+
+        <input
+          type="datetime-local"
+          formControlName="endDateTime"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Ticket Price
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          formControlName="ticketPrice"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Parking Fee
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          formControlName="parkingFee"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Capacity
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          formControlName="capacity"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="isSaving()"
+      >
+        {{
+          isSaving()
+            ? 'Saving...'
+            : 'Save Changes'
+        }}
+      </button>
+
+      <a
+        routerLink="/admin/events"
+        class="secondary-btn"
+      >
+        Cancel
+      </a>
+
+    </div>
+
+  </form>
+
+</section>

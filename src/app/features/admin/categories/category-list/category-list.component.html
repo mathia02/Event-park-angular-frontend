@@ -1,0 +1,149 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / CATEGORIES
+      </span>
+
+      <h1>
+        Category Management
+      </h1>
+
+      <p>
+        Manage event categories.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/categories/create"
+      class="primary-btn"
+    >
+      + Create Category
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading categories...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      categories().length === 0
+    "
+    class="state-card"
+  >
+    No categories found.
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      categories().length > 0
+    "
+    class="table-card"
+  >
+
+    <table class="data-table">
+
+      <thead>
+
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>DESCRIPTION</th>
+          <th>ACTIONS</th>
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let category of categories()
+          "
+        >
+
+          <td>
+            {{ category.id }}
+          </td>
+
+          <td>
+            <strong>
+              {{ category.name }}
+            </strong>
+          </td>
+
+          <td>
+            {{
+              category.description
+              || 'No description'
+            }}
+          </td>
+
+          <td>
+
+            <div class="actions">
+
+              <a
+                [routerLink]="[
+                  '/admin/categories',
+                  category.id,
+                  'edit'
+                ]"
+                class="primary-btn"
+              >
+                Edit
+              </a>
+
+              <button
+                type="button"
+                class="danger-btn"
+                [disabled]="
+                  deletingId() === category.id
+                "
+                (click)="
+                  deleteCategory(category)
+                "
+              >
+                {{
+                  deletingId() === category.id
+                    ? 'Deleting...'
+                    : 'Delete'
+                }}
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>

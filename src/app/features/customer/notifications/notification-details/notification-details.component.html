@@ -1,0 +1,197 @@
+<section class="details-page">
+
+  <a
+    routerLink="/customer/notifications"
+    class="back-link"
+  >
+    ← Back to Notifications
+  </a>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading notification...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <section
+    *ngIf="
+      !isLoading() &&
+      notification() as currentNotification
+    "
+    class="details-card"
+  >
+
+    <div class="details-top">
+
+      <div>
+
+        <span class="type-label">
+          {{
+            getTypeName(
+              currentNotification.type
+            )
+          }}
+        </span>
+
+        <h1>
+          {{ currentNotification.title }}
+        </h1>
+
+      </div>
+
+
+      <span
+        class="status-badge"
+        [class.read]="
+          currentNotification.isRead
+        "
+      >
+        {{
+          currentNotification.isRead
+            ? 'Read'
+            : 'Unread'
+        }}
+      </span>
+
+    </div>
+
+
+    <div class="message-box">
+      {{ currentNotification.message }}
+    </div>
+
+
+    <div class="info-grid">
+
+      <div>
+
+        <span>
+          Notification ID
+        </span>
+
+        <strong>
+          {{ currentNotification.id }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Created
+        </span>
+
+        <strong>
+          {{
+            toLocalDate(
+              currentNotification.createdAt
+            )
+              | date:'medium'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div
+        *ngIf="
+          currentNotification.bookingId
+        "
+      >
+
+        <span>
+          Booking ID
+        </span>
+
+        <strong>
+          {{ currentNotification.bookingId }}
+        </strong>
+
+      </div>
+
+
+      <div
+        *ngIf="
+          currentNotification.eventId
+        "
+      >
+
+        <span>
+          Event ID
+        </span>
+
+        <strong>
+          {{ currentNotification.eventId }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        *ngIf="
+          !currentNotification.isRead
+        "
+        type="button"
+        class="read-button"
+        [disabled]="isMarking()"
+        (click)="markAsRead()"
+      >
+        {{
+          isMarking()
+            ? 'Updating...'
+            : 'Mark as Read'
+        }}
+      </button>
+
+
+      <a
+        *ngIf="
+          currentNotification.bookingId
+        "
+        [routerLink]="[
+          '/customer/bookings',
+          currentNotification.bookingId
+        ]"
+        class="booking-button"
+      >
+        View Booking
+      </a>
+
+
+      <a
+        *ngIf="
+          currentNotification.eventId
+        "
+        [routerLink]="[
+          '/events',
+          currentNotification.eventId
+        ]"
+        class="event-button"
+      >
+        View Event
+      </a>
+
+    </div>
+
+  </section>
+
+</section>

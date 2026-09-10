@@ -11,8 +11,16 @@ import {
 } from './layouts/customer-layout/customer-layout.component';
 
 import {
+  AdminLayoutComponent
+} from './layouts/admin-layout/admin-layout.component';
+
+import {
   customerGuard
 } from './core/guards/customer.guard';
+
+import {
+  adminGuard
+} from './core/guards/admin.guard';
 
 import {
   HomeComponent
@@ -67,6 +75,22 @@ import {
 } from './features/customer/profile/profile-edit/profile-edit.component';
 
 import {
+  MyBookingsComponent
+} from './features/customer/bookings/my-bookings/my-bookings.component';
+
+import {
+  BookingDetailsComponent
+} from './features/customer/bookings/booking-details/booking-details.component';
+
+import {
+  NotificationListComponent
+} from './features/customer/notifications/notification-list/notification-list.component';
+
+import {
+  NotificationDetailsComponent
+} from './features/customer/notifications/notification-details/notification-details.component';
+
+import {
   SeatSelectionComponent
 } from './features/customer/reservation/seat-selection/seat-selection.component';
 
@@ -93,6 +117,46 @@ import {
 import {
   PaymentDetailsComponent
 } from './features/customer/payments/payment-details/payment-details.component';
+
+import {
+  AdminDashboardComponent
+} from './features/admin/dashboard/admin-dashboard/admin-dashboard.component';
+
+import {
+  AdminEventListComponent
+} from './features/admin/events/event-list/event-list.component';
+
+import {
+  AdminEventCreateComponent
+} from './features/admin/events/event-create/event-create.component';
+
+import {
+  AdminEventEditComponent
+} from './features/admin/events/event-edit/event-edit.component';
+
+import {
+  AdminVenueListComponent
+} from './features/admin/venues/venue-list/venue-list.component';
+
+import {
+  AdminVenueCreateComponent
+} from './features/admin/venues/venue-create/venue-create.component';
+
+import {
+  AdminVenueEditComponent
+} from './features/admin/venues/venue-edit/venue-edit.component';
+
+import {
+  AdminCategoryListComponent
+} from './features/admin/categories/category-list/category-list.component';
+
+import {
+  AdminCategoryCreateComponent
+} from './features/admin/categories/category-create/category-create.component';
+
+import {
+  AdminCategoryEditComponent
+} from './features/admin/categories/category-edit/category-edit.component';
 
 export const routes: Routes = [
 
@@ -163,6 +227,32 @@ export const routes: Routes = [
       },
 
       {
+        path: 'bookings',
+        component:
+          MyBookingsComponent
+      },
+
+      {
+        path: 'bookings/:bookingId',
+        component:
+          BookingDetailsComponent
+      },
+
+      {
+        path: 'notifications',
+        component:
+          NotificationListComponent
+      },
+
+      {
+        path:
+          'notifications/:notificationId',
+
+        component:
+          NotificationDetailsComponent
+      },
+
+      {
         path:
           'reservation/:eventId/seats',
 
@@ -204,7 +294,6 @@ export const routes: Routes = [
 
       {
         path: 'payments',
-
         component:
           MyPaymentsComponent
       },
@@ -222,33 +311,123 @@ export const routes: Routes = [
 
 
   {
+    path: 'admin',
+
+    component:
+      AdminLayoutComponent,
+
+    canActivate: [
+      adminGuard
+    ],
+
+    children: [
+
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+
+      {
+        path: 'dashboard',
+        component:
+          AdminDashboardComponent
+      },
+
+      {
+        path: 'events',
+        component:
+          AdminEventListComponent
+      },
+
+      {
+        path: 'events/create',
+        component:
+          AdminEventCreateComponent
+      },
+
+      {
+        path: 'events/:eventId/edit',
+        component:
+          AdminEventEditComponent
+      },
+
+      {
+        path: 'venues',
+        component:
+          AdminVenueListComponent
+      },
+
+      {
+        path: 'venues/create',
+        component:
+          AdminVenueCreateComponent
+      },
+
+      {
+        path: 'venues/:venueId/edit',
+        component:
+          AdminVenueEditComponent
+      },
+
+      {
+        path: 'categories',
+        component:
+          AdminCategoryListComponent
+      },
+
+      {
+        path: 'categories/create',
+        component:
+          AdminCategoryCreateComponent
+      },
+
+      {
+        path:
+          'categories/:categoryId/edit',
+
+        component:
+          AdminCategoryEditComponent
+      }
+
+    ]
+  },
+
+
+  {
     path: 'login',
-    component: LoginComponent
+    component:
+      LoginComponent
   },
 
   {
     path: 'register',
-    component: RegisterComponent
+    component:
+      RegisterComponent
   },
 
   {
     path: 'verify-email',
-    component: VerifyEmailComponent
+    component:
+      VerifyEmailComponent
   },
 
   {
     path: 'resend-verification',
-    component: ResendVerificationComponent
+    component:
+      ResendVerificationComponent
   },
 
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component:
+      ForgotPasswordComponent
   },
 
   {
     path: 'reset-password',
-    component: ResetPasswordComponent
+    component:
+      ResetPasswordComponent
   },
 
   {

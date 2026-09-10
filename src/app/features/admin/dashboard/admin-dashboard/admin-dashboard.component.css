@@ -1,0 +1,375 @@
+:host {
+  display: block;
+}
+
+.admin-dashboard {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  padding: 28px 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 25px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #f8fafc
+    );
+
+  border: 1px solid #dbeafe;
+}
+
+.small-label {
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+}
+
+.welcome-card h1 {
+  margin: 7px 0;
+
+  color: #172554;
+
+  font-size: 30px;
+}
+
+.welcome-card p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+.logout-button {
+  padding: 11px 18px;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #dc2626;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.stats-grid {
+  margin-top: 22px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+}
+
+.stat-card {
+  padding: 22px;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.stat-card > span {
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.stat-card > strong {
+  display: block;
+
+  margin-top: 9px;
+
+  color: #172554;
+
+  font-size: 30px;
+}
+
+.stat-card p {
+  margin: 5px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+.dashboard-grid {
+  margin-top: 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.panel-card,
+.system-card {
+  padding: 25px;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.panel-card h2,
+.system-card h2 {
+  margin: 6px 0 20px;
+
+  color: #172554;
+}
+
+.summary-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+}
+
+.summary-list > div {
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 11px;
+
+  background: #f8fafc;
+}
+
+.summary-list span {
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.summary-list strong {
+  color: #475569;
+
+  font-size: 19px;
+}
+
+.summary-list strong.pending {
+  color: #d97706;
+}
+
+.summary-list strong.confirmed {
+  color: #16a34a;
+}
+
+.summary-list strong.cancelled {
+  color: #dc2626;
+}
+
+.revenue-box {
+  padding: 25px;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #f0fdf4
+    );
+}
+
+.revenue-box span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.revenue-box strong {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #172554;
+
+  font-size: 30px;
+}
+
+.resource-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+}
+
+.parking-grid {
+  grid-template-columns:
+    repeat(2, 1fr);
+}
+
+.resource-grid > div {
+  padding: 17px;
+
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+.resource-grid span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 11px;
+}
+
+.resource-grid strong {
+  font-size: 23px;
+}
+
+.resource-grid .available {
+  background: #f0fdf4;
+
+  color: #15803d;
+}
+
+.resource-grid .held {
+  background: #fff7ed;
+
+  color: #c2410c;
+}
+
+.resource-grid .booked {
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+.resource-grid .unavailable {
+  background: #f1f5f9;
+
+  color: #64748b;
+}
+
+.system-card {
+  margin-top: 20px;
+}
+
+.system-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+}
+
+.system-grid > div {
+  padding: 16px;
+
+  border-radius: 11px;
+
+  background: #f8fafc;
+}
+
+.system-grid span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.system-grid strong {
+  color: #334155;
+
+  font-size: 13px;
+}
+
+.state-card {
+  margin-top: 20px;
+
+  padding: 40px;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+.state-card.error {
+  color: #dc2626;
+}
+
+.state-card button {
+  padding: 9px 15px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+@media (max-width: 950px) {
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .welcome-card {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .stats-grid,
+  .summary-list,
+  .resource-grid,
+  .parking-grid,
+  .system-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

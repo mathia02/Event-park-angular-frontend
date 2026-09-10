@@ -1,0 +1,302 @@
+:host {
+  display: block;
+}
+
+.notifications-page {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.page-heading {
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 20px;
+}
+
+.page-heading > div:first-child > span,
+.type-label {
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+.page-heading h1 {
+  margin: 7px 0;
+
+  color: #172554;
+
+  font-size: 34px;
+}
+
+.page-heading p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+.filter-buttons {
+  padding: 5px;
+
+  display: flex;
+
+  gap: 5px;
+
+  border-radius: 11px;
+
+  background: #e2e8f0;
+}
+
+.filter-buttons button {
+  padding: 9px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #64748b;
+
+  cursor: pointer;
+
+  font-weight: 700;
+}
+
+.filter-buttons button.active {
+  background: #ffffff;
+
+  color: #2563eb;
+}
+
+.notification-list {
+  display: grid;
+
+  gap: 13px;
+}
+
+.notification-card {
+  padding: 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    48px 1fr;
+
+  gap: 17px;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.notification-card.unread {
+  border-color: #93c5fd;
+
+  background: #f8fbff;
+}
+
+.notification-icon {
+  width: 45px;
+  height: 45px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  background: #f1f5f9;
+
+  color: #475569;
+
+  font-weight: 800;
+}
+
+.notification-icon.confirmed {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.notification-icon.cancelled {
+  background: #fee2e2;
+
+  color: #b91c1c;
+}
+
+.notification-icon.payment {
+  background: #dbeafe;
+
+  color: #2563eb;
+}
+
+.notification-icon.reminder {
+  background: #fef3c7;
+
+  color: #92400e;
+}
+
+.notification-icon.updated {
+  background: #ede9fe;
+
+  color: #6d28d9;
+}
+
+.notification-top {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: start;
+
+  gap: 20px;
+}
+
+.notification-top h3 {
+  margin: 5px 0;
+
+  color: #172554;
+}
+
+.unread-badge {
+  padding: 5px 9px;
+
+  border-radius: 50px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.notification-content > p {
+  margin: 10px 0;
+
+  color: #64748b;
+
+  line-height: 1.6;
+}
+
+.notification-meta {
+  display: flex;
+
+  gap: 15px;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+.actions {
+  margin-top: 15px;
+
+  display: flex;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+}
+
+.view-button,
+.read-button,
+.booking-button {
+  padding: 9px 13px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.view-button {
+  border: 1px solid #bfdbfe;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+.read-button {
+  border: 1px solid #bbf7d0;
+
+  background: #f0fdf4;
+
+  color: #15803d;
+}
+
+.booking-button {
+  border: 1px solid #cbd5e1;
+
+  background: #ffffff;
+
+  color: #475569;
+}
+
+.read-button:disabled {
+  opacity: 0.5;
+}
+
+.state-card {
+  padding: 40px;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+.state-card h3 {
+  color: #172554;
+}
+
+.state-card.error {
+  color: #dc2626;
+}
+
+.state-card button {
+  padding: 9px 15px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+@media (max-width: 650px) {
+
+  .page-heading {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .notification-card {
+    grid-template-columns: 1fr;
+  }
+
+  .notification-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+}

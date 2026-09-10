@@ -1,0 +1,373 @@
+<section class="details-page">
+
+  <a
+    routerLink="/customer/bookings"
+    class="back-link"
+  >
+    ← Back to My Bookings
+  </a>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading booking details...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="successMessage()"
+    class="success-message"
+  >
+    {{ successMessage() }}
+  </div>
+
+
+  <section
+    *ngIf="
+      !isLoading() &&
+      booking() as currentBooking
+    "
+    class="booking-card"
+  >
+
+    <div class="booking-heading">
+
+      <div>
+
+        <span class="small-label">
+          BOOKING DETAILS
+        </span>
+
+        <h1>
+          {{ currentBooking.bookingNumber }}
+        </h1>
+
+        <p>
+          {{ currentBooking.eventName }}
+        </p>
+
+      </div>
+
+
+      <span
+        class="status-badge"
+        [ngClass]="
+          getStatusClass(
+            currentBooking.status
+          )
+        "
+      >
+        {{
+          getStatusName(
+            currentBooking.status
+          )
+        }}
+      </span>
+
+    </div>
+
+
+    <div class="summary-grid">
+
+      <div>
+
+        <span>
+          Customer
+        </span>
+
+        <strong>
+          {{ currentBooking.customerName }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Created
+        </span>
+
+        <strong>
+          {{
+            currentBooking.createdAt
+              | date:'medium'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Total Amount
+        </span>
+
+        <strong>
+          LKR
+          {{
+            currentBooking.totalAmount
+              | number:'1.2-2'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Number of Seats
+        </span>
+
+        <strong>
+          {{ currentBooking.seats.length }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div
+      *ngIf="
+        currentBooking.status ===
+          BookingStatus.Pending &&
+        currentBooking.holdExpiresAt
+      "
+      class="hold-card"
+      [class.expired]="
+        isHoldExpired(
+          currentBooking
+        )
+      "
+    >
+
+      <span>
+        {{
+          isHoldExpired(currentBooking)
+            ? 'Booking Hold Expired'
+            : 'Payment Hold Expires'
+        }}
+      </span>
+
+      <strong>
+        {{
+          toLocalDate(
+            currentBooking.holdExpiresAt
+          )
+            | date:'medium'
+        }}
+      </strong>
+
+    </div>
+
+
+    <div class="section-divider"></div>
+
+
+    <div class="section-title">
+
+      <span class="small-label">
+        SEATS
+      </span>
+
+      <h2>
+        Reserved Seats
+      </h2>
+
+    </div>
+
+
+    <div class="seat-list">
+
+      <article
+        *ngFor="
+          let seat of currentBooking.seats
+        "
+        class="seat-card"
+      >
+
+        <div>
+
+          <span>
+            Seat Number
+          </span>
+
+          <strong>
+            {{ seat.seatNumber }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Seat Type
+          </span>
+
+          <strong>
+            {{ seat.seatType || 'Regular' }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Price
+          </span>
+
+          <strong>
+            LKR
+            {{
+              seat.priceAtBooking
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <ng-container
+      *ngIf="
+        currentBooking.parking as parking
+      "
+    >
+
+      <div class="section-divider"></div>
+
+
+      <div class="section-title">
+
+        <span class="small-label">
+          PARKING
+        </span>
+
+        <h2>
+          Parking Reservation
+        </h2>
+
+      </div>
+
+
+      <div class="parking-card">
+
+        <div>
+
+          <span>
+            Slot
+          </span>
+
+          <strong>
+            {{ parking.slotNumber }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Zone
+          </span>
+
+          <strong>
+            {{ parking.zone }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Fee
+          </span>
+
+          <strong>
+            LKR
+            {{
+              parking.reservedFee
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </ng-container>
+
+
+    <div class="section-divider"></div>
+
+
+    <div class="action-row">
+
+      <a
+        *ngIf="
+          canPay(currentBooking)
+        "
+        [routerLink]="[
+          '/customer/payments',
+          currentBooking.id,
+          'checkout'
+        ]"
+        class="pay-button"
+      >
+        Complete Payment
+      </a>
+
+
+      <button
+        *ngIf="
+          canCancel(currentBooking)
+        "
+        type="button"
+        class="cancel-button"
+        [disabled]="isCancelling()"
+        (click)="cancelBooking()"
+      >
+
+        {{
+          isCancelling()
+            ? 'Cancelling...'
+            : 'Cancel Booking'
+        }}
+
+      </button>
+
+
+      <a
+        routerLink="/events"
+        class="events-button"
+      >
+        Browse Events
+      </a>
+
+    </div>
+
+  </section>
+
+</section>

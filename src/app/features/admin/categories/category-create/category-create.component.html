@@ -1,0 +1,103 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / CATEGORIES
+      </span>
+
+      <h1>
+        Create Category
+      </h1>
+
+      <p>
+        Add a new event category.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/categories"
+      class="secondary-btn"
+    >
+      Back
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <form
+    [formGroup]="categoryForm"
+    (ngSubmit)="createCategory()"
+    class="form-card"
+  >
+
+    <div class="form-grid">
+
+      <div class="field full-width">
+
+        <label>
+          Category Name
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Example: Technology"
+        >
+
+      </div>
+
+
+      <div class="field full-width">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          formControlName="description"
+          placeholder="Category description"
+        ></textarea>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="isSaving()"
+      >
+        {{
+          isSaving()
+            ? 'Creating...'
+            : 'Create Category'
+        }}
+      </button>
+
+      <a
+        routerLink="/admin/categories"
+        class="secondary-btn"
+      >
+        Cancel
+      </a>
+
+    </div>
+
+  </form>
+
+</section>

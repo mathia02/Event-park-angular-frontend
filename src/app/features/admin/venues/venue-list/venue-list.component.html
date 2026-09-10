@@ -1,0 +1,149 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / VENUES
+      </span>
+
+      <h1>
+        Venue Management
+      </h1>
+
+      <p>
+        Manage event locations.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/venues/create"
+      class="primary-btn"
+    >
+      + Create Venue
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading venues...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      venues().length === 0
+    "
+    class="state-card"
+  >
+    No venues found.
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      venues().length > 0
+    "
+    class="table-card"
+  >
+
+    <table class="data-table">
+
+      <thead>
+
+        <tr>
+          <th>ID</th>
+          <th>VENUE</th>
+          <th>ADDRESS</th>
+          <th>CAPACITY</th>
+          <th>ACTIONS</th>
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let venue of venues()
+          "
+        >
+
+          <td>
+            {{ venue.id }}
+          </td>
+
+          <td>
+            <strong>
+              {{ venue.name }}
+            </strong>
+          </td>
+
+          <td>
+            {{ venue.address }}
+          </td>
+
+          <td>
+            {{ venue.capacity }}
+          </td>
+
+          <td>
+
+            <div class="actions">
+
+              <a
+                [routerLink]="[
+                  '/admin/venues',
+                  venue.id,
+                  'edit'
+                ]"
+                class="primary-btn"
+              >
+                Edit
+              </a>
+
+              <button
+                type="button"
+                class="danger-btn"
+                [disabled]="
+                  deletingId() === venue.id
+                "
+                (click)="deleteVenue(venue)"
+              >
+                {{
+                  deletingId() === venue.id
+                    ? 'Deleting...'
+                    : 'Delete'
+                }}
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>

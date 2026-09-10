@@ -1,0 +1,118 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / VENUES
+      </span>
+
+      <h1>
+        Create Venue
+      </h1>
+
+      <p>
+        Add a new event venue.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/venues"
+      class="secondary-btn"
+    >
+      Back
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <form
+    [formGroup]="venueForm"
+    (ngSubmit)="createVenue()"
+    class="form-card"
+  >
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Venue Name
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Venue name"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Capacity
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          formControlName="capacity"
+        >
+
+      </div>
+
+
+      <div class="field full-width">
+
+        <label>
+          Address
+        </label>
+
+        <textarea
+          formControlName="address"
+          placeholder="Venue address"
+        ></textarea>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="isSaving()"
+      >
+        {{
+          isSaving()
+            ? 'Creating...'
+            : 'Create Venue'
+        }}
+      </button>
+
+      <a
+        routerLink="/admin/venues"
+        class="secondary-btn"
+      >
+        Cancel
+      </a>
+
+    </div>
+
+  </form>
+
+</section>

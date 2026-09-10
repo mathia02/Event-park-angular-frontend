@@ -1,0 +1,261 @@
+<section class="notifications-page">
+
+  <div class="page-heading">
+
+    <div>
+
+      <span>
+        NOTIFICATIONS
+      </span>
+
+      <h1>
+        My Notifications
+      </h1>
+
+      <p>
+        View booking, payment and
+        event updates.
+      </p>
+
+    </div>
+
+
+    <div class="filter-buttons">
+
+      <button
+        type="button"
+        [class.active]="
+          !unreadOnly()
+        "
+        (click)="showAll()"
+      >
+        All
+      </button>
+
+      <button
+        type="button"
+        [class.active]="
+          unreadOnly()
+        "
+        (click)="showUnread()"
+      >
+        Unread
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading notifications...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+
+    <p>
+      {{ errorMessage() }}
+    </p>
+
+    <button
+      type="button"
+      (click)="loadNotifications()"
+    >
+      Try Again
+    </button>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      notifications().length === 0
+    "
+    class="state-card"
+  >
+
+    <h3>
+      {{
+        unreadOnly()
+          ? 'No unread notifications'
+          : 'No notifications yet'
+      }}
+    </h3>
+
+    <p>
+      {{
+        unreadOnly()
+          ? 'You have read all your notifications.'
+          : 'New booking and payment updates will appear here.'
+      }}
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      notifications().length > 0
+    "
+    class="notification-list"
+  >
+
+    <article
+      *ngFor="
+        let notification of notifications()
+      "
+      class="notification-card"
+      [class.unread]="
+        !notification.isRead
+      "
+    >
+
+      <div
+        class="notification-icon"
+        [ngClass]="
+          getTypeClass(
+            notification.type
+          )
+        "
+      >
+        {{
+          notification.isRead
+            ? '✓'
+            : '!'
+        }}
+      </div>
+
+
+      <div class="notification-content">
+
+        <div class="notification-top">
+
+          <div>
+
+            <span class="type-label">
+              {{
+                getTypeName(
+                  notification.type
+                )
+              }}
+            </span>
+
+            <h3>
+              {{ notification.title }}
+            </h3>
+
+          </div>
+
+
+          <span
+            *ngIf="
+              !notification.isRead
+            "
+            class="unread-badge"
+          >
+            New
+          </span>
+
+        </div>
+
+
+        <p>
+          {{ notification.message }}
+        </p>
+
+
+        <div class="notification-meta">
+
+          <span>
+            {{
+              toLocalDate(
+                notification.createdAt
+              )
+                | date:'medium'
+            }}
+          </span>
+
+          <span
+            *ngIf="
+              notification.bookingId
+            "
+          >
+            Booking #{{ notification.bookingId }}
+          </span>
+
+        </div>
+
+
+        <div class="actions">
+
+          <a
+            [routerLink]="[
+              '/customer/notifications',
+              notification.id
+            ]"
+            class="view-button"
+          >
+            View Details
+          </a>
+
+
+          <button
+            *ngIf="
+              !notification.isRead
+            "
+            type="button"
+            class="read-button"
+            [disabled]="
+              markingId()
+              === notification.id
+            "
+            (click)="
+              markAsRead(notification)
+            "
+          >
+
+            {{
+              markingId()
+                === notification.id
+                ? 'Updating...'
+                : 'Mark as Read'
+            }}
+
+          </button>
+
+
+          <a
+            *ngIf="
+              notification.bookingId
+            "
+            [routerLink]="[
+              '/customer/bookings',
+              notification.bookingId
+            ]"
+            class="booking-button"
+          >
+            View Booking
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>

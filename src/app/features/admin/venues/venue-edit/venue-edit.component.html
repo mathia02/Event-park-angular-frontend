@@ -1,0 +1,125 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / VENUES
+      </span>
+
+      <h1>
+        Edit Venue
+      </h1>
+
+      <p>
+        Update venue details.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/venues"
+      class="secondary-btn"
+    >
+      Back
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading venue...
+  </div>
+
+
+  <form
+    *ngIf="!isLoading()"
+    [formGroup]="venueForm"
+    (ngSubmit)="updateVenue()"
+    class="form-card"
+  >
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Venue Name
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Capacity
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          formControlName="capacity"
+        >
+
+      </div>
+
+
+      <div class="field full-width">
+
+        <label>
+          Address
+        </label>
+
+        <textarea
+          formControlName="address"
+        ></textarea>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="isSaving()"
+      >
+        {{
+          isSaving()
+            ? 'Saving...'
+            : 'Save Changes'
+        }}
+      </button>
+
+      <a
+        routerLink="/admin/venues"
+        class="secondary-btn"
+      >
+        Cancel
+      </a>
+
+    </div>
+
+  </form>
+
+</section>

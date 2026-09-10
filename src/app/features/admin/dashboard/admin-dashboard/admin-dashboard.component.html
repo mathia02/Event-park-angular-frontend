@@ -1,0 +1,451 @@
+<section class="admin-dashboard">
+
+  <div class="welcome-card">
+
+    <div>
+
+      <span class="small-label">
+        ADMIN DASHBOARD
+      </span>
+
+      <h1>
+        Welcome, {{ adminName() }}
+      </h1>
+
+      <p>
+        Monitor customers, events,
+        bookings, payments, seats and
+        parking from one place.
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="logout-button"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading admin dashboard...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+
+    <p>
+      {{ errorMessage() }}
+    </p>
+
+    <button
+      type="button"
+      (click)="loadDashboard()"
+    >
+      Try Again
+    </button>
+
+  </div>
+
+
+  <ng-container
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      dashboard() as data
+    "
+  >
+
+    <section class="stats-grid">
+
+      <article class="stat-card">
+
+        <span>
+          Total Customers
+        </span>
+
+        <strong>
+          {{ data.totalCustomers }}
+        </strong>
+
+        <p>
+          Registered users
+        </p>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <span>
+          Total Events
+        </span>
+
+        <strong>
+          {{ data.totalEvents }}
+        </strong>
+
+        <p>
+          All events
+        </p>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <span>
+          Upcoming Events
+        </span>
+
+        <strong>
+          {{ data.upcomingEvents }}
+        </strong>
+
+        <p>
+          Future events
+        </p>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <span>
+          Total Bookings
+        </span>
+
+        <strong>
+          {{ data.totalBookings }}
+        </strong>
+
+        <p>
+          All reservations
+        </p>
+
+      </article>
+
+    </section>
+
+
+    <section class="dashboard-grid">
+
+      <article class="panel-card">
+
+        <div class="panel-heading">
+
+          <div>
+
+            <span class="small-label">
+              BOOKINGS
+            </span>
+
+            <h2>
+              Booking Overview
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="summary-list">
+
+          <div>
+
+            <span>
+              Pending
+            </span>
+
+            <strong class="pending">
+              {{ data.pendingBookings }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Confirmed
+            </span>
+
+            <strong class="confirmed">
+              {{ data.confirmedBookings }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Cancelled
+            </span>
+
+            <strong class="cancelled">
+              {{ data.cancelledBookings }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Expired
+            </span>
+
+            <strong>
+              {{ data.expiredBookings }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="panel-card">
+
+        <span class="small-label">
+          REVENUE
+        </span>
+
+        <h2>
+          Payment Summary
+        </h2>
+
+
+        <div class="revenue-box">
+
+          <span>
+            Total Revenue
+          </span>
+
+          <strong>
+            LKR
+            {{
+              data.totalRevenue
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <section class="dashboard-grid">
+
+      <article class="panel-card">
+
+        <span class="small-label">
+          SEATS
+        </span>
+
+        <h2>
+          Seat Availability
+        </h2>
+
+
+        <div class="resource-grid">
+
+          <div class="available">
+
+            <span>
+              Available
+            </span>
+
+            <strong>
+              {{ data.availableSeats }}
+            </strong>
+
+          </div>
+
+
+          <div class="held">
+
+            <span>
+              Held
+            </span>
+
+            <strong>
+              {{ data.heldSeats }}
+            </strong>
+
+          </div>
+
+
+          <div class="booked">
+
+            <span>
+              Booked
+            </span>
+
+            <strong>
+              {{ data.bookedSeats }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="panel-card">
+
+        <span class="small-label">
+          PARKING
+        </span>
+
+        <h2>
+          Parking Availability
+        </h2>
+
+
+        <div class="resource-grid parking-grid">
+
+          <div class="available">
+
+            <span>
+              Available
+            </span>
+
+            <strong>
+              {{ data.availableParkingSlots }}
+            </strong>
+
+          </div>
+
+
+          <div class="held">
+
+            <span>
+              Held
+            </span>
+
+            <strong>
+              {{ data.heldParkingSlots }}
+            </strong>
+
+          </div>
+
+
+          <div class="booked">
+
+            <span>
+              Booked
+            </span>
+
+            <strong>
+              {{ data.bookedParkingSlots }}
+            </strong>
+
+          </div>
+
+
+          <div class="unavailable">
+
+            <span>
+              Unavailable
+            </span>
+
+            <strong>
+              {{ data.unavailableParkingSlots }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <section class="system-card">
+
+      <div>
+
+        <span class="small-label">
+          SYSTEM
+        </span>
+
+        <h2>
+          System Overview
+        </h2>
+
+      </div>
+
+
+      <div class="system-grid">
+
+        <div>
+
+          <span>
+            Venues
+          </span>
+
+          <strong>
+            {{ data.totalVenues }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Categories
+          </span>
+
+          <strong>
+            {{ data.totalCategories }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Dashboard Updated
+          </span>
+
+          <strong>
+            {{
+              toLocalDate(
+                data.generatedAtUtc
+              )
+                | date:'medium'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </ng-container>
+
+</section>

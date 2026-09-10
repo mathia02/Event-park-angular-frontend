@@ -1,0 +1,200 @@
+<section class="management-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span>
+        ADMIN / EVENTS
+      </span>
+
+      <h1>
+        Event Management
+      </h1>
+
+      <p>
+        Create and manage system events.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/admin/events/create"
+      class="primary-btn"
+    >
+      + Create Event
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="errorMessage()"
+    class="message error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading events...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      events().length === 0
+    "
+    class="state-card"
+  >
+    No events found.
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      events().length > 0
+    "
+    class="table-card"
+  >
+
+    <table class="data-table">
+
+      <thead>
+
+        <tr>
+
+          <th>
+            EVENT
+          </th>
+
+          <th>
+            VENUE
+          </th>
+
+          <th>
+            CATEGORY
+          </th>
+
+          <th>
+            DATE
+          </th>
+
+          <th>
+            PRICE
+          </th>
+
+          <th>
+            CAPACITY
+          </th>
+
+          <th>
+            ACTIONS
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let event of events()
+          "
+        >
+
+          <td>
+            <strong>
+              {{ event.name }}
+            </strong>
+          </td>
+
+          <td>
+            {{ event.venueName }}
+          </td>
+
+          <td>
+            {{ event.categoryName }}
+          </td>
+
+          <td>
+            {{
+              toLocalDate(
+                event.startDateTime
+              )
+                | date:'medium'
+            }}
+          </td>
+
+          <td>
+            LKR
+            {{
+              event.ticketPrice
+                | number:'1.2-2'
+            }}
+          </td>
+
+          <td>
+            {{ event.capacity }}
+          </td>
+
+          <td>
+
+            <div class="actions">
+
+              <a
+                [routerLink]="[
+                  '/events',
+                  event.id
+                ]"
+                class="secondary-btn"
+              >
+                View
+              </a>
+
+              <a
+                [routerLink]="[
+                  '/admin/events',
+                  event.id,
+                  'edit'
+                ]"
+                class="primary-btn"
+              >
+                Edit
+              </a>
+
+              <button
+                type="button"
+                class="danger-btn"
+                [disabled]="
+                  deletingId() === event.id
+                "
+                (click)="deleteEvent(event)"
+              >
+                {{
+                  deletingId() === event.id
+                    ? 'Deleting...'
+                    : 'Delete'
+                }}
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>

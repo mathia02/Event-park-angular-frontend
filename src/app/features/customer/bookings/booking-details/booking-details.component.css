@@ -1,0 +1,299 @@
+:host {
+  display: block;
+}
+
+.details-page {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+
+  margin-bottom: 20px;
+
+  color: #2563eb;
+
+  text-decoration: none;
+
+  font-weight: 700;
+}
+
+.booking-card {
+  padding: 30px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.booking-heading {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: start;
+
+  gap: 20px;
+}
+
+.small-label {
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+}
+
+.booking-heading h1 {
+  margin: 7px 0;
+
+  color: #172554;
+}
+
+.booking-heading p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+.status-badge {
+  padding: 7px 13px;
+
+  border-radius: 50px;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.status-badge.pending {
+  background: #fef3c7;
+
+  color: #92400e;
+}
+
+.status-badge.confirmed {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.status-badge.cancelled {
+  background: #fee2e2;
+
+  color: #b91c1c;
+}
+
+.status-badge.expired {
+  background: #f1f5f9;
+
+  color: #64748b;
+}
+
+.summary-grid {
+  margin-top: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 12px;
+}
+
+.summary-grid > div,
+.parking-card > div {
+  padding: 15px;
+
+  border-radius: 11px;
+
+  background: #f8fafc;
+}
+
+.summary-grid span,
+.parking-card span,
+.seat-card span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.summary-grid strong,
+.parking-card strong,
+.seat-card strong {
+  color: #334155;
+
+  font-size: 13px;
+}
+
+.hold-card {
+  margin-top: 18px;
+
+  padding: 15px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  border-radius: 11px;
+
+  background: #fff7ed;
+
+  color: #9a3412;
+}
+
+.hold-card.expired {
+  background: #fef2f2;
+
+  color: #b91c1c;
+}
+
+.section-divider {
+  margin: 27px 0;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.section-title h2 {
+  margin: 6px 0 15px;
+
+  color: #172554;
+}
+
+.seat-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+}
+
+.seat-card {
+  padding: 15px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+
+  border-radius: 12px;
+
+  background: #f8fafc;
+}
+
+.parking-card {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+}
+
+.action-row {
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.pay-button,
+.cancel-button,
+.events-button {
+  padding: 11px 17px;
+
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.pay-button {
+  border: none;
+
+  background: #2563eb;
+
+  color: #ffffff;
+}
+
+.cancel-button {
+  background: #ffffff;
+
+  color: #dc2626;
+
+  border: 1px solid #fecaca;
+}
+
+.events-button {
+  border: 1px solid #cbd5e1;
+
+  color: #475569;
+}
+
+.cancel-button:disabled {
+  opacity: 0.5;
+}
+
+.state-card,
+.success-message {
+  padding: 35px;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  text-align: center;
+}
+
+.state-card.error {
+  color: #dc2626;
+}
+
+.success-message {
+  margin-bottom: 18px;
+
+  background: #f0fdf4;
+
+  border-color: #bbf7d0;
+
+  color: #15803d;
+}
+
+@media (max-width: 800px) {
+
+  .summary-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .summary-grid,
+  .seat-list,
+  .parking-card {
+    grid-template-columns: 1fr;
+  }
+
+  .seat-card {
+    grid-template-columns: 1fr;
+  }
+
+}

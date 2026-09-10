@@ -1,0 +1,299 @@
+<section class="bookings-page">
+
+  <div class="page-heading">
+
+    <div>
+      <span>
+        BOOKINGS
+      </span>
+
+      <h1>
+        My Bookings
+      </h1>
+
+      <p>
+        View and manage all your event reservations.
+      </p>
+    </div>
+
+    <a
+      routerLink="/events"
+      class="browse-button"
+    >
+      Browse Events
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading your bookings...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+
+    <p>
+      {{ errorMessage() }}
+    </p>
+
+    <button
+      type="button"
+      (click)="loadBookings()"
+    >
+      Try Again
+    </button>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      bookings().length === 0
+    "
+    class="state-card"
+  >
+
+    <h3>
+      No bookings yet
+    </h3>
+
+    <p>
+      Your event reservations
+      will appear here.
+    </p>
+
+    <a
+      routerLink="/events"
+      class="browse-button"
+    >
+      Find an Event
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      bookings().length > 0
+    "
+    class="booking-list"
+  >
+
+    <article
+      *ngFor="
+        let booking of bookings()
+      "
+      class="booking-card"
+    >
+
+      <div class="booking-header">
+
+        <div>
+
+          <span class="booking-label">
+            BOOKING NUMBER
+          </span>
+
+          <h3>
+            {{ booking.bookingNumber }}
+          </h3>
+
+        </div>
+
+        <span
+          class="status-badge"
+          [ngClass]="
+            getStatusClass(
+              booking.status
+            )
+          "
+        >
+          {{
+            getStatusName(
+              booking.status
+            )
+          }}
+        </span>
+
+      </div>
+
+
+      <div class="event-section">
+
+        <span>
+          EVENT
+        </span>
+
+        <strong>
+          {{ booking.eventName }}
+        </strong>
+
+      </div>
+
+
+      <div class="booking-grid">
+
+        <div>
+
+          <span>
+            Seats
+          </span>
+
+          <strong>
+            {{ booking.seats.length }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Parking
+          </span>
+
+          <strong>
+            {{
+              booking.parking
+                ? booking.parking.slotNumber
+                : 'No Parking'
+            }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Total Amount
+          </span>
+
+          <strong>
+            LKR
+            {{
+              booking.totalAmount
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Created
+          </span>
+
+          <strong>
+            {{
+              booking.createdAt
+                | date:'mediumDate'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div
+        *ngIf="
+          booking.status ===
+            BookingStatus.Pending &&
+          booking.holdExpiresAt &&
+          !isHoldExpired(booking)
+        "
+        class="hold-message"
+      >
+        Payment required before
+        {{
+          booking.holdExpiresAt
+            | date:'medium'
+        }}
+      </div>
+
+
+      <div
+        *ngIf="
+          booking.status ===
+            BookingStatus.Pending &&
+          isHoldExpired(booking)
+        "
+        class="expired-message"
+      >
+        This booking hold has expired.
+      </div>
+
+
+      <div class="booking-actions">
+
+        <a
+          [routerLink]="[
+            '/customer/bookings',
+            booking.id
+          ]"
+          class="view-button"
+        >
+          View Details
+        </a>
+
+
+        <a
+          *ngIf="canPay(booking)"
+          [routerLink]="[
+            '/customer/payments',
+            booking.id,
+            'checkout'
+          ]"
+          class="pay-button"
+        >
+          Pay Now
+        </a>
+
+
+        <button
+          *ngIf="
+            canCancel(booking)
+          "
+          type="button"
+          class="cancel-button"
+          [disabled]="
+            cancellingBookingId()
+            === booking.id
+          "
+          (click)="
+            cancelBooking(booking)
+          "
+        >
+
+          {{
+            cancellingBookingId()
+              === booking.id
+              ? 'Cancelling...'
+              : 'Cancel Booking'
+          }}
+
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
