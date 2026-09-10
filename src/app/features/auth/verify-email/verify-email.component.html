@@ -1,0 +1,88 @@
+<div class="verify-page">
+
+  <div class="verify-card">
+
+    <div class="brand">
+      EventPark
+    </div>
+
+    <div
+      *ngIf="isLoading"
+      class="status-section"
+    >
+
+      <div class="loader"></div>
+
+      <h2>
+        Verifying your email
+      </h2>
+
+      <p>
+        Please wait while we verify
+        your email address.
+      </p>
+
+    </div>
+
+    <div
+      *ngIf="!isLoading && isSuccess"
+      class="status-section"
+    >
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h2>
+        Email Verified!
+      </h2>
+
+      <p>
+        {{ message }}
+      </p>
+
+      <a
+        routerLink="/login"
+        class="primary-button"
+      >
+        Continue to Login
+      </a>
+
+    </div>
+
+    <div
+      *ngIf="!isLoading && !isSuccess"
+      class="status-section"
+    >
+
+      <div class="error-icon">
+        !
+      </div>
+
+      <h2>
+        Verification Failed
+      </h2>
+
+      <p>
+        {{ message }}
+      </p>
+
+      <a
+        routerLink="/resend-verification"
+        class="primary-button"
+      >
+        Resend Verification Email
+      </a>
+
+      <a
+        routerLink="/login"
+        class="secondary-link"
+      >
+        Back to Login
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

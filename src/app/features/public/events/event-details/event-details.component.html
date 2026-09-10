@@ -1,0 +1,279 @@
+<section class="details-page">
+
+  <div class="container">
+
+    <a
+      routerLink="/events"
+      class="back-link"
+    >
+      ← Back to Events
+    </a>
+
+
+    <div
+      *ngIf="isLoading()"
+      class="state-card"
+    >
+      Loading event details...
+    </div>
+
+
+    <div
+      *ngIf="
+        !isLoading() &&
+        errorMessage()
+      "
+      class="state-card error"
+    >
+
+      <h2>
+        Unable to load event
+      </h2>
+
+      <p>
+        {{ errorMessage() }}
+      </p>
+
+      <a
+        routerLink="/events"
+        class="primary-button"
+      >
+        Back to Events
+      </a>
+
+    </div>
+
+
+    <div
+      *ngIf="
+        !isLoading() &&
+        !errorMessage() &&
+        event() as selectedEvent
+      "
+    >
+
+      <section class="hero-card">
+
+        <div class="hero-content">
+
+          <span class="category">
+            {{ selectedEvent.categoryName }}
+          </span>
+
+          <h1>
+            {{ selectedEvent.name }}
+          </h1>
+
+          <p>
+            {{
+              selectedEvent.description ||
+              'Event information and reservation details.'
+            }}
+          </p>
+
+        </div>
+
+        <div class="date-card">
+
+          <span>
+            EVENT DATE
+          </span>
+
+          <strong>
+            {{
+              selectedEvent.startDateTime
+                | date:'dd'
+            }}
+          </strong>
+
+          <p>
+            {{
+              selectedEvent.startDateTime
+                | date:'MMMM yyyy'
+            }}
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <section class="details-grid">
+
+        <div class="main-column">
+
+          <div class="info-card">
+
+            <span class="section-label">
+              EVENT INFORMATION
+            </span>
+
+            <h2>
+              Event Details
+            </h2>
+
+
+            <div class="info-grid">
+
+              <div class="info-item">
+
+                <span>
+                  Venue
+                </span>
+
+                <strong>
+                  {{ selectedEvent.venueName }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-item">
+
+                <span>
+                  Start Date
+                </span>
+
+                <strong>
+                  {{
+                    selectedEvent.startDateTime
+                      | date:'mediumDate'
+                  }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-item">
+
+                <span>
+                  Start Time
+                </span>
+
+                <strong>
+                  {{
+                    selectedEvent.startDateTime
+                      | date:'shortTime'
+                  }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-item">
+
+                <span>
+                  End Time
+                </span>
+
+                <strong>
+                  {{
+                    selectedEvent.endDateTime
+                      | date:'shortTime'
+                  }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-item">
+
+                <span>
+                  Capacity
+                </span>
+
+                <strong>
+                  {{ selectedEvent.capacity }}
+                  people
+                </strong>
+
+              </div>
+
+
+              <div class="info-item">
+
+                <span>
+                  Category
+                </span>
+
+                <strong>
+                  {{ selectedEvent.categoryName }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <aside class="booking-card">
+
+          <span class="section-label">
+            RESERVATION
+          </span>
+
+          <h2>
+            Book this event
+          </h2>
+
+
+          <div class="price-row">
+
+            <span>
+              Ticket Price
+            </span>
+
+            <strong>
+              LKR
+              {{
+                selectedEvent.ticketPrice
+                  | number:'1.2-2'
+              }}
+            </strong>
+
+          </div>
+
+
+          <div class="price-row">
+
+            <span>
+              Parking Fee
+            </span>
+
+            <strong>
+              LKR
+              {{
+                selectedEvent.parkingFee
+                  | number:'1.2-2'
+              }}
+            </strong>
+
+          </div>
+
+
+          <p class="booking-note">
+            Sign in to select your seats,
+            reserve parking and complete
+            your booking.
+          </p>
+
+
+          <a
+            routerLink="/login"
+            class="primary-button full"
+          >
+            Login to Book
+          </a>
+
+        </aside>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</section>

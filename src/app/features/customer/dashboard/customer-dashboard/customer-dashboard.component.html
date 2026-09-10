@@ -1,0 +1,360 @@
+<section class="dashboard-page">
+
+  <div class="welcome-card">
+
+    <div>
+
+      <span class="small-label">
+        CUSTOMER DASHBOARD
+      </span>
+
+      <h1>
+        Welcome, {{ customerName() }}
+      </h1>
+
+      <p>
+        Manage your event bookings,
+        payments and profile from one place.
+      </p>
+
+    </div>
+
+    <div class="welcome-actions">
+
+      <a
+        routerLink="/events"
+        class="primary-button"
+      >
+        Browse Events
+      </a>
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading your dashboard...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+
+    <p>
+      {{ errorMessage() }}
+    </p>
+
+    <button
+      type="button"
+      (click)="loadDashboard()"
+    >
+      Try Again
+    </button>
+
+  </div>
+
+
+  <ng-container
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      dashboard() as data
+    "
+  >
+
+    <div class="stats-grid">
+
+      <article class="stat-card">
+
+        <span>
+          Total Bookings
+        </span>
+
+        <strong>
+          {{ data.totalBookings }}
+        </strong>
+
+        <p>
+          All your reservations
+        </p>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <span>
+          Confirmed
+        </span>
+
+        <strong>
+          {{ data.confirmedBookings }}
+        </strong>
+
+        <p>
+          Confirmed bookings
+        </p>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <span>
+          Pending
+        </span>
+
+        <strong>
+          {{ data.pendingBookings }}
+        </strong>
+
+        <p>
+          Waiting for completion
+        </p>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <span>
+          Upcoming
+        </span>
+
+        <strong>
+          {{ data.upcomingConfirmedBookings }}
+        </strong>
+
+        <p>
+          Upcoming confirmed events
+        </p>
+
+      </article>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+      <section class="summary-card">
+
+        <div class="section-title">
+
+          <div>
+
+            <span>
+              BOOKING SUMMARY
+            </span>
+
+            <h2>
+              Reservation Overview
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="summary-list">
+
+          <div>
+
+            <span>
+              Pending Bookings
+            </span>
+
+            <strong>
+              {{ data.pendingBookings }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Confirmed Bookings
+            </span>
+
+            <strong>
+              {{ data.confirmedBookings }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Cancelled Bookings
+            </span>
+
+            <strong>
+              {{ data.cancelledBookings }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Expired Bookings
+            </span>
+
+            <strong>
+              {{ data.expiredBookings }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="summary-card">
+
+        <div class="section-title">
+
+          <div>
+
+            <span>
+              ACCOUNT ACTIVITY
+            </span>
+
+            <h2>
+              Account Summary
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="highlight-box">
+
+          <span>
+            Total Paid
+          </span>
+
+          <strong>
+            LKR
+            {{
+              data.totalPaid
+                | number:'1.2-2'
+            }}
+          </strong>
+
+        </div>
+
+
+        <div class="notification-box">
+
+          <div>
+
+            <span>
+              Unread Notifications
+            </span>
+
+            <strong>
+              {{ data.unreadNotifications }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <section class="quick-actions">
+
+      <div class="section-title">
+
+        <span>
+          QUICK ACTIONS
+        </span>
+
+        <h2>
+          What would you like to do?
+        </h2>
+
+      </div>
+
+
+      <div class="action-grid">
+
+        <a
+          routerLink="/events"
+          class="action-card"
+        >
+
+          <strong>
+            Explore Events
+          </strong>
+
+          <span>
+            Find your next event
+          </span>
+
+        </a>
+
+
+        <a
+          routerLink="/customer/profile"
+          class="action-card"
+        >
+
+          <strong>
+            My Profile
+          </strong>
+
+          <span>
+            View account information
+          </span>
+
+        </a>
+
+
+        <a
+          routerLink="/customer/profile/edit"
+          class="action-card"
+        >
+
+          <strong>
+            Edit Profile
+          </strong>
+
+          <span>
+            Update name and phone
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </ng-container>
+
+</section>

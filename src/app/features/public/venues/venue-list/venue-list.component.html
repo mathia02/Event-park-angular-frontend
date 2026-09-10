@@ -1,0 +1,157 @@
+<section class="venue-header">
+
+  <div>
+
+    <span>
+      VENUES
+    </span>
+
+    <h1>
+      Explore Event Venues
+    </h1>
+
+    <p>
+      Discover venues available
+      for upcoming events.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="venue-container">
+
+  <div class="section-header">
+
+    <div>
+
+      <span>
+        AVAILABLE VENUES
+      </span>
+
+      <h2>
+        Our Venues
+      </h2>
+
+    </div>
+
+    <p *ngIf="!isLoading()">
+      {{ venues().length }}
+      venue{{ venues().length === 1 ? '' : 's' }}
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading venues...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      venues().length === 0
+    "
+    class="state-card"
+  >
+
+    <h3>
+      No venues available
+    </h3>
+
+    <p>
+      There are currently
+      no venues to display.
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      venues().length > 0
+    "
+    class="venue-grid"
+  >
+
+    <article
+      *ngFor="let venue of venues()"
+      class="venue-card"
+    >
+
+      <div class="venue-image">
+
+        <div class="venue-symbol">
+          V
+        </div>
+
+      </div>
+
+
+      <div class="venue-content">
+
+        <span class="venue-label">
+          EVENT VENUE
+        </span>
+
+        <h3>
+          {{ venue.name }}
+        </h3>
+
+
+        <div class="venue-info">
+
+          <div>
+
+            <span>
+              Address
+            </span>
+
+            <strong>
+              {{ venue.address }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Capacity
+            </span>
+
+            <strong>
+              {{ venue.capacity }}
+              people
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>

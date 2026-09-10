@@ -1,0 +1,349 @@
+<section class="page-header">
+
+  <div>
+
+    <span class="page-label">
+      DISCOVER
+    </span>
+
+    <h1>
+      Explore Events
+    </h1>
+
+    <p>
+      Find an event you love,
+      view event details and reserve
+      your preferred seats.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="events-container">
+
+  <form
+    class="filter-card"
+    [formGroup]="filterForm"
+    (ngSubmit)="loadEvents()"
+  >
+
+    <div class="filter-field">
+
+      <label>
+        Event Name
+      </label>
+
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Search events"
+      >
+
+    </div>
+
+
+    <div class="filter-field">
+
+      <label>
+        Date
+      </label>
+
+      <input
+        type="date"
+        formControlName="date"
+      >
+
+    </div>
+
+
+    <div class="filter-field">
+
+      <label>
+        Venue
+      </label>
+
+      <select
+        formControlName="venueId"
+      >
+
+        <option value="">
+          All Venues
+        </option>
+
+        <option
+          *ngFor="let venue of venues()"
+          [value]="venue.id"
+        >
+          {{ venue.name }}
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="filter-field">
+
+      <label>
+        Category
+      </label>
+
+      <select
+        formControlName="categoryId"
+      >
+
+        <option value="">
+          All Categories
+        </option>
+
+        <option
+          *ngFor="let category of categories()"
+          [value]="category.id"
+        >
+          {{ category.name }}
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="filter-actions">
+
+      <button
+        type="submit"
+        class="search-button"
+      >
+        Search
+      </button>
+
+      <button
+        type="button"
+        class="clear-button"
+        (click)="clearFilters()"
+      >
+        Clear
+      </button>
+
+    </div>
+
+  </form>
+
+
+  <div class="results-header">
+
+    <div>
+
+      <span>
+        EVENTS
+      </span>
+
+      <h2>
+        Available Events
+      </h2>
+
+    </div>
+
+    <p *ngIf="!isLoading()">
+
+      {{ events().length }}
+
+      event{{ events().length === 1 ? '' : 's' }}
+
+      found
+
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading events...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      events().length === 0
+    "
+    class="state-card"
+  >
+
+    <h3>
+      No events found
+    </h3>
+
+    <p>
+      No events are currently available.
+    </p>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      events().length > 0
+    "
+    class="event-grid"
+  >
+
+    <article
+      *ngFor="let event of events()"
+      class="event-card"
+    >
+
+      <div class="event-cover">
+
+        <span class="category-badge">
+
+          {{ event.categoryName }}
+
+        </span>
+
+
+        <div class="date-box">
+
+          <strong>
+
+            {{
+              event.startDateTime
+                | date:'dd'
+            }}
+
+          </strong>
+
+          <span>
+
+            {{
+              event.startDateTime
+                | date:'MMM'
+            }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="event-content">
+
+        <h3>
+          {{ event.name }}
+        </h3>
+
+
+        <div class="event-info">
+
+          <p>
+
+            <strong>
+              Venue:
+            </strong>
+
+            {{ event.venueName }}
+
+          </p>
+
+
+          <p>
+
+            <strong>
+              Date:
+            </strong>
+
+            {{
+              event.startDateTime
+                | date:'mediumDate'
+            }}
+
+          </p>
+
+
+          <p>
+
+            <strong>
+              Time:
+            </strong>
+
+            {{
+              event.startDateTime
+                | date:'shortTime'
+            }}
+
+          </p>
+
+        </div>
+
+
+        <p class="description">
+
+          {{
+            event.description ||
+            'Event details are available here.'
+          }}
+
+        </p>
+
+
+        <div class="event-bottom">
+
+          <div class="price-area">
+
+            <span>
+              Ticket Price
+            </span>
+
+            <strong>
+
+              LKR
+
+              {{
+                event.ticketPrice
+                  | number:'1.2-2'
+              }}
+
+            </strong>
+
+          </div>
+
+
+          <a
+            class="details-button"
+            [routerLink]="[
+              '/events',
+              event.id
+            ]"
+          >
+            View Details
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>

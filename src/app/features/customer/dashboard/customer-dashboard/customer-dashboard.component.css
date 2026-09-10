@@ -1,0 +1,348 @@
+:host {
+  display: block;
+}
+
+.dashboard-page {
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  padding: 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 25px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #ffffff,
+      #f0fdf4
+    );
+
+  border: 1px solid #e2e8f0;
+}
+
+.small-label,
+.section-title span {
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+}
+
+.welcome-card h1 {
+  margin: 9px 0;
+
+  color: #172554;
+
+  font-size: 34px;
+}
+
+.welcome-card p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+.welcome-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.primary-button,
+.logout-button {
+  padding: 12px 18px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.primary-button {
+  border: none;
+
+  background: #2563eb;
+
+  color: #ffffff;
+}
+
+.logout-button {
+  border: 1px solid #cbd5e1;
+
+  background: #ffffff;
+
+  color: #475569;
+}
+
+.stats-grid {
+  margin-top: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+}
+
+.stat-card {
+  padding: 23px;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 8px 25px
+    rgba(15, 23, 42, 0.05);
+}
+
+.stat-card > span {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.stat-card strong {
+  display: block;
+
+  margin: 10px 0;
+
+  color: #172554;
+
+  font-size: 32px;
+}
+
+.stat-card p {
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+.dashboard-grid {
+  margin-top: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 22px;
+}
+
+.summary-card,
+.quick-actions {
+  padding: 28px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.section-title h2 {
+  margin: 7px 0 22px;
+
+  color: #172554;
+}
+
+.summary-list {
+  display: grid;
+
+  gap: 10px;
+}
+
+.summary-list > div {
+  padding: 15px;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-radius: 11px;
+
+  background: #f8fafc;
+}
+
+.summary-list span {
+  color: #64748b;
+}
+
+.summary-list strong {
+  color: #172554;
+}
+
+.highlight-box {
+  padding: 22px;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #dbeafe,
+      #eff6ff
+    );
+}
+
+.highlight-box span {
+  color: #64748b;
+}
+
+.highlight-box strong {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #172554;
+
+  font-size: 26px;
+}
+
+.notification-box {
+  margin-top: 15px;
+
+  padding: 18px;
+
+  border-radius: 13px;
+
+  background: #f0fdf4;
+}
+
+.notification-box div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.notification-box span {
+  color: #64748b;
+}
+
+.notification-box strong {
+  color: #16a34a;
+}
+
+.quick-actions {
+  margin-top: 25px;
+}
+
+.action-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+.action-card {
+  padding: 20px;
+
+  border-radius: 14px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  text-decoration: none;
+}
+
+.action-card strong {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #172554;
+}
+
+.action-card span {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.state-card {
+  margin-top: 25px;
+
+  padding: 45px;
+
+  border-radius: 18px;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  color: #64748b;
+}
+
+.state-card.error {
+  color: #dc2626;
+}
+
+.state-card button {
+  margin-top: 10px;
+
+  padding: 10px 15px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 750px) {
+
+  .welcome-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

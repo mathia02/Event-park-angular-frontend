@@ -1,0 +1,93 @@
+<div class="auth-page">
+
+  <div class="auth-card">
+
+    <div class="brand">
+      EventPark
+    </div>
+
+    <h2>
+      Resend Verification
+    </h2>
+
+    <p class="subtitle">
+      Enter your registered email address
+      and we will send a new verification link.
+    </p>
+
+    <div
+      *ngIf="successMessage"
+      class="success-alert"
+    >
+      {{ successMessage }}
+    </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="error-alert"
+    >
+      {{ errorMessage }}
+    </div>
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
+
+      <div class="form-group">
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        >
+
+        <small
+          *ngIf="
+            email.touched &&
+            email.hasError('required')
+          "
+          class="field-error"
+        >
+          Email is required.
+        </small>
+
+        <small
+          *ngIf="
+            email.touched &&
+            email.hasError('email')
+          "
+          class="field-error"
+        >
+          Enter a valid email address.
+        </small>
+
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="isLoading"
+      >
+        {{ isLoading
+          ? 'Sending...'
+          : 'Resend Verification Email'
+        }}
+      </button>
+
+    </form>
+
+    <a
+      routerLink="/login"
+      class="back-link"
+    >
+      Back to Login
+    </a>
+
+  </div>
+
+</div>

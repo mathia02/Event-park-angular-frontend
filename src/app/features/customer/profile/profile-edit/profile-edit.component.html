@@ -1,0 +1,155 @@
+<section class="edit-page">
+
+  <div class="page-heading">
+
+    <div>
+
+      <span>
+        MY ACCOUNT
+      </span>
+
+      <h1>
+        Edit Profile
+      </h1>
+
+      <p>
+        Update your personal information.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/customer/profile"
+      class="back-button"
+    >
+      ← Back to Profile
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading profile...
+  </div>
+
+
+  <form
+    *ngIf="!isLoading()"
+    class="edit-card"
+    [formGroup]="profileForm"
+    (ngSubmit)="saveProfile()"
+  >
+
+    <div
+      *ngIf="successMessage()"
+      class="message success"
+    >
+      {{ successMessage() }}
+    </div>
+
+
+    <div
+      *ngIf="errorMessage()"
+      class="message error"
+    >
+      {{ errorMessage() }}
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Full Name
+      </label>
+
+      <input
+        type="text"
+        formControlName="fullName"
+        placeholder="Enter your full name"
+      >
+
+      <small
+        *ngIf="
+          fullName.touched &&
+          fullName.hasError('required')
+        "
+      >
+        Full name is required.
+      </small>
+
+      <small
+        *ngIf="
+          fullName.touched &&
+          fullName.hasError('maxlength')
+        "
+      >
+        Maximum 100 characters allowed.
+      </small>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Phone Number
+      </label>
+
+      <input
+        type="tel"
+        formControlName="phone"
+        placeholder="Enter phone number"
+      >
+
+      <small
+        *ngIf="
+          phone.touched &&
+          phone.hasError('required')
+        "
+      >
+        Phone number is required.
+      </small>
+
+      <small
+        *ngIf="
+          phone.touched &&
+          phone.hasError('pattern')
+        "
+      >
+        Enter a valid phone number.
+      </small>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <a
+        routerLink="/customer/profile"
+        class="cancel-button"
+      >
+        Cancel
+      </a>
+
+      <button
+        type="submit"
+        class="save-button"
+        [disabled]="isSaving()"
+      >
+
+        {{
+          isSaving()
+            ? 'Saving...'
+            : 'Save Changes'
+        }}
+
+      </button>
+
+    </div>
+
+  </form>
+
+</section>

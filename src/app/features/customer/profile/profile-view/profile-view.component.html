@@ -1,0 +1,209 @@
+<section class="profile-page">
+
+  <div class="page-heading">
+
+    <div>
+
+      <span>
+        MY ACCOUNT
+      </span>
+
+      <h1>
+        My Profile
+      </h1>
+
+      <p>
+        View your account information.
+      </p>
+
+    </div>
+
+
+    <a
+      routerLink="/customer/profile/edit"
+      class="edit-button"
+    >
+      Edit Profile
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-card"
+  >
+    Loading profile...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-card error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      profile() as customer
+    "
+    class="profile-grid"
+  >
+
+    <section class="profile-card">
+
+      <div class="avatar">
+
+        {{
+          customer.fullName
+            .charAt(0)
+            .toUpperCase()
+        }}
+
+      </div>
+
+      <h2>
+        {{ customer.fullName }}
+      </h2>
+
+      <p>
+        {{ customer.email }}
+      </p>
+
+      <div
+        class="status-badge"
+        [class.active]="
+          customer.status ===
+          CustomerStatus.Active
+        "
+      >
+
+        {{
+          customer.status ===
+          CustomerStatus.Active
+            ? 'Active Account'
+            : 'Deactivated'
+        }}
+
+      </div>
+
+    </section>
+
+
+    <section class="details-card">
+
+      <span class="section-label">
+        PERSONAL INFORMATION
+      </span>
+
+      <h2>
+        Account Details
+      </h2>
+
+
+      <div class="details-grid">
+
+        <div>
+
+          <span>
+            Full Name
+          </span>
+
+          <strong>
+            {{ customer.fullName }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Email Address
+          </span>
+
+          <strong>
+            {{ customer.email }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Phone Number
+          </span>
+
+          <strong>
+            {{ customer.phone }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Account Role
+          </span>
+
+          <strong>
+            {{ customer.role }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Email Verification
+          </span>
+
+          <strong
+            [class.verified]="
+              customer.emailVerified
+            "
+          >
+
+            {{
+              customer.emailVerified
+                ? 'Verified'
+                : 'Not Verified'
+            }}
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Member Since
+          </span>
+
+          <strong>
+            {{
+              customer.createdAt
+                | date:'mediumDate'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</section>

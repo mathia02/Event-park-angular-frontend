@@ -1,0 +1,186 @@
+<div class="login-page">
+
+  <div class="login-container">
+
+    <div class="login-info">
+
+      <span class="brand">
+        EventPark
+      </span>
+
+      <h1>
+        Your event journey starts here.
+      </h1>
+
+      <p>
+        Discover events, reserve your seats,
+        select parking and manage everything
+        from one simple place.
+      </p>
+
+      <div class="feature-list">
+
+        <div class="feature">
+          <span>✓</span>
+          Browse upcoming events
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          Reserve event seats
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          Book parking easily
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          Manage bookings and payments
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="login-card">
+
+      <div class="card-header">
+
+        <h2>Welcome back</h2>
+
+        <p>
+          Sign in to continue to EventPark.
+        </p>
+
+      </div>
+
+      <div
+        *ngIf="errorMessage"
+        class="error-alert"
+      >
+        {{ errorMessage }}
+      </div>
+
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+      >
+
+        <div class="form-group">
+
+          <label for="email">
+            Email Address
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Enter your email"
+          >
+
+          <small
+            class="field-error"
+            *ngIf="
+              email.touched &&
+              email.hasError('required')
+            "
+          >
+            Email is required.
+          </small>
+
+          <small
+            class="field-error"
+            *ngIf="
+              email.touched &&
+              email.hasError('email')
+            "
+          >
+            Enter a valid email address.
+          </small>
+
+        </div>
+
+        <div class="form-group">
+
+          <div class="password-label">
+
+            <label for="password">
+              Password
+            </label>
+
+            <a
+              routerLink="/forgot-password"
+            >
+              Forgot password?
+            </a>
+
+          </div>
+
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          >
+
+          <small
+            class="field-error"
+            *ngIf="
+              password.touched &&
+              password.hasError('required')
+            "
+          >
+            Password is required.
+          </small>
+
+          <small
+            class="field-error"
+            *ngIf="
+              password.touched &&
+              password.hasError('minlength')
+            "
+          >
+            Password must contain at least
+            6 characters.
+          </small>
+
+        </div>
+
+        <button
+          type="submit"
+          class="login-button"
+          [disabled]="isLoading"
+        >
+
+          <span *ngIf="!isLoading">
+            Sign In
+          </span>
+
+          <span *ngIf="isLoading">
+            Signing in...
+          </span>
+
+        </button>
+
+      </form>
+
+      <div class="register-link">
+
+        <span>
+          Don't have an account?
+        </span>
+
+        <a routerLink="/register">
+          Create account
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

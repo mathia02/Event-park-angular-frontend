@@ -1,0 +1,203 @@
+:host {
+  display: block;
+}
+
+.edit-page {
+  max-width: 850px;
+
+  margin: 0 auto;
+}
+
+.page-heading {
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.page-heading span {
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+}
+
+.page-heading h1 {
+  margin: 7px 0;
+
+  color: #172554;
+
+  font-size: 34px;
+}
+
+.page-heading p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+.back-button {
+  color: #2563eb;
+
+  text-decoration: none;
+
+  font-weight: 700;
+}
+
+.edit-card {
+  padding: 32px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(37, 99, 235, 0.1);
+}
+
+.form-group small {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dc2626;
+
+  font-size: 12px;
+}
+
+.form-actions {
+  margin-top: 30px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.cancel-button {
+  border: 1px solid #cbd5e1;
+
+  background: #ffffff;
+
+  color: #475569;
+}
+
+.save-button {
+  border: none;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+.message {
+  margin-bottom: 20px;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+}
+
+.message.success {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.message.error {
+  background: #fee2e2;
+
+  color: #dc2626;
+}
+
+.state-card {
+  padding: 45px;
+
+  text-align: center;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  color: #64748b;
+}
+
+@media (max-width: 600px) {
+
+  .page-heading {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .edit-card {
+    padding: 23px;
+  }
+
+}

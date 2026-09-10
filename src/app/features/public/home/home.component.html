@@ -1,0 +1,397 @@
+<section class="hero">
+
+  <div class="hero-content">
+
+    <span class="hero-badge">
+      Events • Seats • Parking
+    </span>
+
+    <h1>
+      Find your next
+      <span>
+        unforgettable event.
+      </span>
+    </h1>
+
+    <p>
+      Discover upcoming events,
+      reserve your preferred seats
+      and book parking from one
+      simple platform.
+    </p>
+
+    <div class="hero-actions">
+
+      <a
+        routerLink="/events"
+        class="primary-button"
+      >
+        Explore Events
+      </a>
+
+      <a
+        routerLink="/register"
+        class="secondary-button"
+      >
+        Create Account
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="hero-card">
+
+    <div class="floating-card">
+
+      <div class="calendar-icon">
+        24
+      </div>
+
+      <div>
+
+        <strong>
+          Discover Events
+        </strong>
+
+        <span>
+          Find events that match
+          your interests.
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="floating-card">
+
+      <div class="seat-icon">
+        S
+      </div>
+
+      <div>
+
+        <strong>
+          Choose Your Seat
+        </strong>
+
+        <span>
+          Select available seats easily.
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="floating-card">
+
+      <div class="parking-icon">
+        P
+      </div>
+
+      <div>
+
+        <strong>
+          Reserve Parking
+        </strong>
+
+        <span>
+          Secure parking before
+          the event.
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="features-section">
+
+  <div class="section-heading">
+
+    <span>
+      WHY EVENTPARK
+    </span>
+
+    <h2>
+      Everything you need in one place
+    </h2>
+
+    <p>
+      A simple reservation experience
+      from event discovery to payment.
+    </p>
+
+  </div>
+
+
+  <div class="feature-grid">
+
+    <article class="feature-card">
+
+      <div class="feature-number">
+        01
+      </div>
+
+      <h3>
+        Discover Events
+      </h3>
+
+      <p>
+        Browse available events
+        and venue details.
+      </p>
+
+    </article>
+
+
+    <article class="feature-card">
+
+      <div class="feature-number">
+        02
+      </div>
+
+      <h3>
+        Select Seats
+      </h3>
+
+      <p>
+        Choose available seats
+        for your event.
+      </p>
+
+    </article>
+
+
+    <article class="feature-card">
+
+      <div class="feature-number">
+        03
+      </div>
+
+      <h3>
+        Add Parking
+      </h3>
+
+      <p>
+        Reserve available parking
+        while booking.
+      </p>
+
+    </article>
+
+
+    <article class="feature-card">
+
+      <div class="feature-number">
+        04
+      </div>
+
+      <h3>
+        Secure Booking
+      </h3>
+
+      <p>
+        Complete reservation
+        and payment easily.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="events-section">
+
+  <div class="events-header">
+
+    <div>
+
+      <span class="section-label">
+        UPCOMING
+      </span>
+
+      <h2>
+        Upcoming Events
+      </h2>
+
+    </div>
+
+    <a
+      routerLink="/events"
+      class="view-all"
+    >
+      View All Events →
+    </a>
+
+  </div>
+
+
+  <div
+    *ngIf="isLoading()"
+    class="state-box"
+  >
+    Loading upcoming events...
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      errorMessage()
+    "
+    class="state-box error"
+  >
+    {{ errorMessage() }}
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      !errorMessage() &&
+      upcomingEvents().length === 0
+    "
+    class="state-box"
+  >
+    No upcoming events available.
+  </div>
+
+
+  <div
+    *ngIf="
+      !isLoading() &&
+      upcomingEvents().length > 0
+    "
+    class="event-grid"
+  >
+
+    <article
+      *ngFor="
+        let event of upcomingEvents()
+      "
+      class="event-card"
+    >
+
+      <div class="event-top">
+
+        <span class="category">
+          {{ event.categoryName }}
+        </span>
+
+        <div class="event-date">
+
+          <strong>
+            {{
+              event.startDateTime
+                | date:'dd'
+            }}
+          </strong>
+
+          <span>
+            {{
+              event.startDateTime
+                | date:'MMM'
+            }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="event-content">
+
+        <h3>
+          {{ event.name }}
+        </h3>
+
+        <p class="venue">
+          {{ event.venueName }}
+        </p>
+
+        <p class="description">
+          {{
+            event.description ||
+            'View this upcoming event.'
+          }}
+        </p>
+
+
+        <div class="event-footer">
+
+          <div>
+
+            <span class="price-label">
+              Ticket from
+            </span>
+
+            <strong class="price">
+              LKR
+              {{
+                event.ticketPrice
+                  | number:'1.2-2'
+              }}
+            </strong>
+
+          </div>
+
+
+          <a
+            [routerLink]="[
+              '/events',
+              event.id
+            ]"
+            class="details-button"
+          >
+            View Details
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="cta-section">
+
+  <div>
+
+    <span>
+      READY TO GET STARTED?
+    </span>
+
+    <h2>
+      Your next event is only
+      a few clicks away.
+    </h2>
+
+    <p>
+      Create your account and
+      start reserving events.
+    </p>
+
+  </div>
+
+  <a
+    routerLink="/register"
+    class="cta-button"
+  >
+    Create Free Account
+  </a>
+
+</section>
